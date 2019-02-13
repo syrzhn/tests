@@ -14,14 +14,41 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Group;
 
 public class FrmStart {
 
 	protected Shell shell;
 	public Table tableBrowse;
-	public static  Display display;
-	public static FrmStart window;
-	
+	public static Display display;
+	public static FrmStart window;	
+	private Text txtSum;
+	private Text txtBefore;
+	private Text txtUntil;
+	private Text txtOldFactor;
+	private Text txtSquareFactor;
+	private Text txtCalculatedate;
+	private Text txtPrize;
+	private Text txtContractNumber;
+	private Text txtCreatedate;
+	private Text txtFio;
+	private Text txtBirthdate;
+	private Text txtPassSerial;
+	private Text txtPassNumber;
+	private Text txtState;
+	private Text txtIndex;
+	private Text txtCount;
+	private Text txtDistrict;
+	private Text txtCity;
+	private Text txtStreet;
+	private Text txtBuilding;
+	private Text txtCorp;
+	private Text txtStructure;
+	private Text txtHouse;
+	private Text txtComment;
 
 	/**
 	 * Launch the application.
@@ -64,7 +91,7 @@ public class FrmStart {
 					dlg.open(); 
 				});
 				Sqlite.browseContractTableView();
-				display.asyncExec(() -> {dlg.shell.dispose(); });
+				display.asyncExec(() -> { dlg.shell.dispose(); });
 			}
 		};
 		task.start();
@@ -75,7 +102,7 @@ public class FrmStart {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(864, 378);
+		shell.setSize(814, 690);
 		shell.setText("SWT Application");
 		shell.setLayout(new GridLayout(1, false));
 		
@@ -85,12 +112,19 @@ public class FrmStart {
 		TabItem tbtmOne = new TabItem(tabFolder, SWT.NONE);
 		tbtmOne.setText("One");
 		
-		Composite composite = new Composite(tabFolder, SWT.NONE);
-		tbtmOne.setControl(composite);
-		composite.setLayout(new GridLayout(2, false));
+		Composite compositeOne = new Composite(tabFolder, SWT.NONE);
+		tbtmOne.setControl(compositeOne);
+		compositeOne.setLayout(new GridLayout(3, false));
+		new Label(compositeOne, SWT.NONE);
 		
-		tableBrowse = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
-		GridData gd_tableBrowse = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
+		Button btnCreateContract = new Button(compositeOne, SWT.NONE);
+		btnCreateContract.setText("Создать договор");
+		
+		Button btnOpenСontract = new Button(compositeOne, SWT.NONE);
+		btnOpenСontract.setText("Открыть контракт");
+		
+		tableBrowse = new Table(compositeOne, SWT.BORDER | SWT.FULL_SELECTION);
+		GridData gd_tableBrowse = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
 		gd_tableBrowse.widthHint = 819;
 		tableBrowse.setLayoutData(gd_tableBrowse);
 		tableBrowse.setHeaderVisible(true);
@@ -113,8 +147,353 @@ public class FrmStart {
 		tblclmnPrize.setText("Премия");
 		
 		TableColumn tblclmnActualDate = new TableColumn(tableBrowse, SWT.NONE);
-		tblclmnActualDate.setWidth(118);
+		tblclmnActualDate.setWidth(189);
 		tblclmnActualDate.setText("Дата окончания");
+		
+		TabItem tbtmTwo = new TabItem(tabFolder, SWT.NONE);
+		tbtmTwo.setText("Two");
+		
+		Composite compositeTwo = new Composite(tabFolder, SWT.NONE);
+		tbtmTwo.setControl(compositeTwo);
+		compositeTwo.setLayout(new GridLayout(1, false));
+		
+		Group grpCalculate = new Group(compositeTwo, SWT.NONE);
+		grpCalculate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		grpCalculate.setText("Расчёт");
+		grpCalculate.setLayout(new GridLayout(8, false));
+		
+		Label lblSum = new Label(grpCalculate, SWT.NONE);
+		lblSum.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblSum.setSize(95, 15);
+		lblSum.setText("Страховая сумма");
+		
+		txtSum = new Text(grpCalculate, SWT.BORDER);
+		GridData gd_txtSum = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_txtSum.widthHint = 116;
+		txtSum.setLayoutData(gd_txtSum);
+		txtSum.setSize(169, 21);
+		
+		Label lblActualtime = new Label(grpCalculate, SWT.NONE);
+		lblActualtime.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblActualtime.setSize(98, 15);
+		lblActualtime.setText("Срок действия с   ");
+		
+		txtBefore = new Text(grpCalculate, SWT.BORDER);
+		GridData gd_txtBefore = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_txtBefore.widthHint = 123;
+		txtBefore.setLayoutData(gd_txtBefore);
+		txtBefore.setSize(90, 21);
+		
+		Button btnCalendarbefore = new Button(grpCalculate, SWT.NONE);
+		btnCalendarbefore.setText("...");
+		
+		Label lblUntil = new Label(grpCalculate, SWT.NONE);
+		lblUntil.setSize(32, 15);
+		lblUntil.setText("   по   ");
+		
+		txtUntil = new Text(grpCalculate, SWT.BORDER);
+		GridData gd_txtUntil = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_txtUntil.widthHint = 131;
+		txtUntil.setLayoutData(gd_txtUntil);
+		txtUntil.setSize(90, 21);
+		
+		Button btnCalendarUntil = new Button(grpCalculate, SWT.NONE);
+		btnCalendarUntil.setText("...");
+		
+		Label lblRealtyFactor = new Label(grpCalculate, SWT.NONE);
+		lblRealtyFactor.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblRealtyFactor.setSize(106, 15);
+		lblRealtyFactor.setText("Тип недвижимости");
+		
+		Combo comboRealtyFactor = new Combo(grpCalculate, SWT.NONE);
+		comboRealtyFactor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		comboRealtyFactor.setSize(169, 23);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		
+		Label lblOldFactor = new Label(grpCalculate, SWT.NONE);
+		lblOldFactor.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblOldFactor.setSize(81, 15);
+		lblOldFactor.setText("Год постройки");
+		
+		txtOldFactor = new Text(grpCalculate, SWT.BORDER);
+		txtOldFactor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		txtOldFactor.setSize(169, 21);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		
+		Label lblSquareFactor = new Label(grpCalculate, SWT.NONE);
+		lblSquareFactor.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblSquareFactor.setSize(52, 15);
+		lblSquareFactor.setText("Площадь");
+		
+		txtSquareFactor = new Text(grpCalculate, SWT.BORDER);
+		txtSquareFactor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		txtSquareFactor.setSize(169, 21);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		
+		Button btnCalculate = new Button(grpCalculate, SWT.NONE);
+		btnCalculate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		btnCalculate.setSize(161, 25);
+		btnCalculate.setText("Рассчитать");
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		
+		Label lblCalculatedate = new Label(grpCalculate, SWT.NONE);
+		lblCalculatedate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblCalculatedate.setSize(73, 15);
+		lblCalculatedate.setText("Дата расчёта");
+		
+		txtCalculatedate = new Text(grpCalculate, SWT.BORDER);
+		txtCalculatedate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		txtCalculatedate.setSize(169, 21);
+		
+		Label lblPrize = new Label(grpCalculate, SWT.NONE);
+		lblPrize.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblPrize.setSize(25, 15);
+		lblPrize.setText("Премия");
+		
+		txtPrize = new Text(grpCalculate, SWT.BORDER);
+		txtPrize.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		txtPrize.setSize(181, 21);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		new Label(grpCalculate, SWT.NONE);
+		
+		Composite composite = new Composite(compositeTwo, SWT.NONE);
+		composite.setLayout(new GridLayout(9, false));
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		Label lblContractnumber = new Label(composite, SWT.NONE);
+		lblContractnumber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblContractnumber.setText("Номер договора");
+		
+		txtContractNumber = new Text(composite, SWT.BORDER);
+		txtContractNumber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		new Label(composite, SWT.NONE);
+		
+		Label lblCreatedate = new Label(composite, SWT.NONE);
+		lblCreatedate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblCreatedate.setText("Дата заключения");
+		
+		txtCreatedate = new Text(composite, SWT.BORDER);
+		txtCreatedate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		Button btnCalendarcreation = new Button(composite, SWT.NONE);
+		btnCalendarcreation.setText("...");
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		Label lblInsurer = new Label(composite, SWT.NONE);
+		lblInsurer.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblInsurer.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblInsurer.setText("СТРАХОВАТЕЛЬ");
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		Button btnSelectinsurer = new Button(composite, SWT.NONE);
+		btnSelectinsurer.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		btnSelectinsurer.setText("Выбрать");
+		
+		Label lblFio = new Label(composite, SWT.NONE);
+		GridData gd_lblFio = new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1);
+		gd_lblFio.widthHint = 39;
+		lblFio.setLayoutData(gd_lblFio);
+		lblFio.setText("ФИО");
+		
+		txtFio = new Text(composite, SWT.BORDER);
+		txtFio.setText("FIO");
+		txtFio.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 5, 1));
+		
+		Button btnChange = new Button(composite, SWT.NONE);
+		btnChange.setText("Изменить");
+		new Label(composite, SWT.NONE);
+		
+		Label lblBithdate = new Label(composite, SWT.NONE);
+		lblBithdate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblBithdate.setText("Дата рождения");
+		
+		txtBirthdate = new Text(composite, SWT.BORDER);
+		GridData gd_txtBirthdate = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		gd_txtBirthdate.widthHint = 98;
+		txtBirthdate.setLayoutData(gd_txtBirthdate);
+		
+		Button btnCalendarbirthdate = new Button(composite, SWT.NONE);
+		btnCalendarbirthdate.setText("...");
+		
+		Label lblPassSerial = new Label(composite, SWT.NONE);
+		lblPassSerial.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblPassSerial.setText("Паспорт   серия");
+		
+		txtPassSerial = new Text(composite, SWT.BORDER);
+		GridData gd_txtPassSerial = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		gd_txtPassSerial.widthHint = 105;
+		txtPassSerial.setLayoutData(gd_txtPassSerial);
+		
+		Label lblPassnumber = new Label(composite, SWT.NONE);
+		lblPassnumber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblPassnumber.setText("номер");
+		
+		txtPassNumber = new Text(composite, SWT.BORDER);
+		txtPassNumber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
+		
+		Label lblAdress = new Label(composite, SWT.NONE);
+		lblAdress.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblAdress.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblAdress.setText("Адрес недвижимости");
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		txtState = new Text(composite, SWT.BORDER);
+		txtState.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		txtIndex = new Text(composite, SWT.BORDER);
+		txtIndex.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		txtCount = new Text(composite, SWT.BORDER);
+		txtCount.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
+		
+		txtDistrict = new Text(composite, SWT.BORDER);
+		txtDistrict.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 4, 1));
+		
+		Label lblState = new Label(composite, SWT.NONE);
+		lblState.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblState.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblState.setText("государство");
+		
+		Label lblIndex = new Label(composite, SWT.NONE);
+		lblIndex.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblIndex.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblIndex.setText("индекс");
+		new Label(composite, SWT.NONE);
+		
+		Label lblCount = new Label(composite, SWT.NONE);
+		lblCount.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblCount.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 3, 1));
+		lblCount.setText("республика, край, область");
+		
+		Label lblDistrict = new Label(composite, SWT.NONE);
+		lblDistrict.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 3, 1));
+		lblDistrict.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblDistrict.setText("район");
+		
+		txtCity = new Text(composite, SWT.BORDER);
+		txtCity.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		txtStreet = new Text(composite, SWT.BORDER);
+		txtStreet.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 4, 1));
+		
+		txtBuilding = new Text(composite, SWT.BORDER);
+		txtBuilding.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		txtCorp = new Text(composite, SWT.BORDER);
+		txtCorp.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		txtStructure = new Text(composite, SWT.BORDER);
+		txtStructure.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		txtHouse = new Text(composite, SWT.BORDER);
+		txtHouse.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		Label lblCity = new Label(composite, SWT.NONE);
+		lblCity.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblCity.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblCity.setText("населённый пункт");
+		
+		Label lblStreet = new Label(composite, SWT.NONE);
+		lblStreet.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblStreet.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 4, 1));
+		lblStreet.setText("улица");
+		
+		Label lblBuilding = new Label(composite, SWT.NONE);
+		lblBuilding.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblBuilding.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblBuilding.setText("дом");
+		
+		Label lblCorp = new Label(composite, SWT.NONE);
+		lblCorp.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblCorp.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblCorp.setText("корпус");
+		
+		Label lblStructure = new Label(composite, SWT.NONE);
+		lblStructure.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblStructure.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblStructure.setText("строение");
+		
+		Label lblHouse = new Label(composite, SWT.NONE);
+		lblHouse.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblHouse.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblHouse.setText("квартира");
+		
+		Label lblComment = new Label(composite, SWT.NONE);
+		lblComment.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblComment.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblComment.setText("КОММЕНТАРИЙ");
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		
+		Label lblDescription = new Label(composite, SWT.NONE);
+		lblDescription.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 2));
+		lblDescription.setText("Комментарий к\r\n"
+				+ "договору (не\r\n"
+				+ "печатается на\r\n"
+				+ "полисе)");
+		
+		txtComment = new Text(composite, SWT.BORDER);
+		GridData gd_txtComment = new GridData(SWT.FILL, SWT.CENTER, true, false, 8, 2);
+		gd_txtComment.heightHint = 46;
+		txtComment.setLayoutData(gd_txtComment);
+		new Label(composite, SWT.NONE);
+		
+		Button btnSave = new Button(composite, SWT.NONE);
+		btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+		btnSave.setText("Сохранить");
+		
+		Button btnBacktocontractlist = new Button(composite, SWT.NONE);
+		btnBacktocontractlist.setText("К списку договоров");
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 	}
 	
 	class WaitDlg extends Dialog {
@@ -128,35 +507,40 @@ public class FrmStart {
 			createContents();
 			shell.open();
 			shell.layout();
-			Display display = getParent().getDisplay();
-			final Runnable timer = new Runnable() {
+			final Display display = getParent().getDisplay();
+			final int time = 306;
+			final Runnable points = new Runnable() {
 				public void run() {
 					if (shell.isDisposed()) return;
 					String s = lblWait.getText();
-					if (s.equals(".  ")) {
-						lblWait.setText(".. ");
+					if (s.equals(".   ")) {
+						lblWait.setText("..  ");
 						s = lblWait.getText();
 					}
-					else if (s.equals(".. ")) {
-						lblWait.setText("...");
+					else if (s.equals("..  ")) {
+						lblWait.setText("... ");
 						s = lblWait.getText();
 					}				
-					else if (s.equals("...")) {
-						lblWait.setText(" ..");
+					else if (s.equals("... ")) {
+						lblWait.setText(" ...");
 						s = lblWait.getText();
 					}				
-					else if (s.equals(" ..")) {
-						lblWait.setText("  .");
+					else if (s.equals(" ...")) {
+						lblWait.setText("  ..");
 						s = lblWait.getText();
 					}				
-					else if (s.equals("  .")) {
-						lblWait.setText(".  ");
+					else if (s.equals("  ..")) {
+						lblWait.setText("   .");
 						s = lblWait.getText();
 					}				
-					display.timerExec(300, this);
+					else if (s.equals("   .")) {
+						lblWait.setText(".   ");
+						s = lblWait.getText();
+					}				
+					display.timerExec(time, this);
 				}
 			};
-			display.timerExec(300, timer);
+			display.timerExec(time, points);
 			while (!shell.isDisposed()) {
 				if (!display.readAndDispatch()) {
 					display.sleep();
@@ -173,7 +557,7 @@ public class FrmStart {
 			shell.setText(getText());
 			shell.setLayout(new GridLayout(1, false));
 			lblWait = new Label(shell, SWT.NONE);
-			lblWait.setText(".  ");
+			lblWait.setText(".   ");
 			lblWait.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 			lblWait.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true, 1, 1));
 		}
