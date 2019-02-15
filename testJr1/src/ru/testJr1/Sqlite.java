@@ -33,18 +33,9 @@ public class Sqlite {
 			connection.createStatement().execute(CREATE_old_factors);
 			connection.createStatement().execute(CREATE_square_factors);
 			connection.createStatement().execute(CREATE_persons);
+			connection.createStatement().execute(CREATE_adresses);
 			connection.createStatement().execute(CREATE_contracts);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
-	public static Connection insertSimpleData() {
-		if (connection == null)
-			connection = createTables();
-		if (dbIsExist)
-			return connection;
-		try {
+			
 			String insert_realty_factors = "INSERT INTO realty_factors (name, multiplier) VALUES (?,?)";
 			PreparedStatement pstmt0 = connection.prepareStatement(insert_realty_factors);
 			pstmt0.setString(1, "Квартира"); pstmt0.setDouble(2, 1.7); pstmt0.executeUpdate();
@@ -63,89 +54,164 @@ public class Sqlite {
 			pstmt2.setString(1, "50-100 кв.м.");    pstmt2.setDouble(2, 1.5); pstmt2.executeUpdate();
 			pstmt2.setString(1, "Более 100 кв.м."); pstmt2.setDouble(2, 2.0); pstmt2.executeUpdate();
 
-			String insert_persons = "INSERT INTO persons (fio, birth_date) VALUES (?,?)";
+			String insert_persons = "INSERT INTO persons (fio, birth_date, passport_serial, "
+					+ "passport_number) VALUES (?,?,?,?)";
 			PreparedStatement pstmt3 = connection.prepareStatement(insert_persons);
-			pstmt3.setString(1, "Иван Иванов");	   pstmt3.setString(2, "1920-02-29"); pstmt3.executeUpdate();
-			pstmt3.setString(1, "Петр Петров");    pstmt3.setString(2, "1917-12-01"); pstmt3.executeUpdate();
-			pstmt3.setString(1, "Сергей Сергеев"); pstmt3.setString(2, "1905-03-08"); pstmt3.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
-	public static Connection createContract(int fio_id, double prize, String date1, String date2) {
-		if (connection == null)
-			connection = insertSimpleData();
-		if (dbIsExist)
-			return connection;
-		String insert_contract = "INSERT INTO contracts (fio_id, prize, create_date, actual_date) VALUES (?,?,?,?)";
-		try {
+			pstmt3.setString(1, "Иван Иванов");	   
+			pstmt3.setString(2, "1920-02-29"); 
+			pstmt3.setString(3, "111 11"); 
+			pstmt3.setString(4, "111111"); 
+			pstmt3.executeUpdate();
+			pstmt3.setString(1, "Петр Петров");    
+			pstmt3.setString(2, "1917-12-01"); 
+			pstmt3.setString(3, "222 22"); 
+			pstmt3.setString(4, "222222"); 
+			pstmt3.executeUpdate();
+			pstmt3.setString(1, "Сергей Сергеев");
+			pstmt3.setString(2, "1905-03-08"); 
+			pstmt3.setString(3, "333 33"); 
+			pstmt3.setString(4, "333333"); 
+			pstmt3.executeUpdate();
+			
+			String insert_adresses = "INSERT INTO adresses ("
+					+ "state," +	"idx," + "statecount," + "district,"
+					+ "city," + "street," + "building," + "corp,"
+					+ "structure," + "house) VALUES (?,?,?,?, ?,?,?,?, ?,?)";
+			PreparedStatement pstmt4 = connection.prepareStatement(insert_adresses);
+			pstmt4.setString(1,  "Russia");	   
+			pstmt4.setString(2,  "617047"); 
+			pstmt4.setString(3,  "Permskiy cry"); 
+			pstmt4.setString(4,  "Permskiy"); 
+			pstmt4.setString(5,  "Perm"); 
+			pstmt4.setString(6,  "Lenin st."); 
+			pstmt4.setString(7,  "1000"); 
+			pstmt4.setString(8,  "A"); 
+			pstmt4.setString(9,  "BFG"); 
+			pstmt4.setString(10, "90"); 
+			pstmt4.executeUpdate();
+			
+			pstmt4.setString(1,  "Russia");	   
+			pstmt4.setString(2,  "617022"); 
+			pstmt4.setString(3,  "Permskiy cry"); 
+			pstmt4.setString(4,  "Permskiy"); 
+			pstmt4.setString(5,  "Perm"); 
+			pstmt4.setString(6,  "Stalin pr-t"); 
+			pstmt4.setString(7,  "1"); 
+			pstmt4.setString(8,  ""); 
+			pstmt4.setString(9,  ""); 
+			pstmt4.setString(10, "1"); 
+			pstmt4.executeUpdate();
+			
+			pstmt4.setString(1,  "Russia");	   
+			pstmt4.setString(2,  "617033"); 
+			pstmt4.setString(3,  "Permskiy cry"); 
+			pstmt4.setString(4,  "Permskiy"); 
+			pstmt4.setString(5,  "Perm"); 
+			pstmt4.setString(6,  "Gorky park"); 
+			pstmt4.setString(7,  "222"); 
+			pstmt4.setString(8,  "B"); 
+			pstmt4.setString(9,  ""); 
+			pstmt4.setString(10, "1"); 
+			pstmt4.executeUpdate();
+			
+			String insert_contract = "INSERT INTO contracts ("
+					+ "tender, " + "create_date, " + "actual_date, "
+					+ "prize, " + "realty_factor_id," + "old_year, "
+					+ "square, " +	"calculate_date, " + "fio_id, "
+					+ "adress_id, " + "comment) VALUES (?,?,?,?, ?,?,?,?, ?,?,?)";
+
 			PreparedStatement pstmt = connection.prepareStatement(insert_contract);
-			pstmt.setInt(1, fio_id);
-			pstmt.setDouble(2, prize);
-			pstmt.setString(3, date1);
-			pstmt.setString(4, date2);
+			pstmt.setDouble(1, 2000.0);
+			pstmt.setString(2, "2018-12-03");
+			pstmt.setString(3, "2019-03-30");
+			pstmt.setDouble(4, 783);
+			pstmt.setInt   (5, 1);
+			pstmt.setInt   (6, 9);
+			pstmt.setInt   (7, 49);
+			pstmt.setString(8, "2018-12-03");
+			pstmt.setInt   (9, 1);
+			pstmt.setInt   (10, 1);
+			pstmt.setString(11, "comments1");
 			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
-	public static Connection createContractTableView() {
-		if (connection == null) {
-			insertSimpleData();
-			createContract(1, 1367.23, "2015-02-03", "2015-02-08");
-			createContract(2, 2314.42, "2015-02-16", "2015-07-15");
-			createContract(3, 2891.76, "2015-03-01", "2015-12-31");
-		}
-		if (dbIsExist)
-			return connection;
-		try {
-			PreparedStatement pstmt = connection.prepareStatement(CREATE_contracts_table_view);
+			
+			pstmt.setDouble(1, 3000.0);
+			pstmt.setString(2, "2018-11-14");
+			pstmt.setString(3, "2019-02-10");
+			pstmt.setDouble(4, 882);
+			pstmt.setInt   (5, 2);
+			pstmt.setInt   (6, 10);
+			pstmt.setInt   (7, 48);
+			pstmt.setString(8, "2018-12-03");
+			pstmt.setInt   (9, 2);
+			pstmt.setInt   (10, 2);
+			pstmt.setString(11, "comments2");
 			pstmt.executeUpdate();
+			
+			pstmt.setDouble(1, 2000.0);
+			pstmt.setString(2, "2018-10-01");
+			pstmt.setString(3, "2019-01-20");
+			pstmt.setDouble(4, 781);
+			pstmt.setInt   (5, 3);
+			pstmt.setInt   (6, 11);
+			pstmt.setInt   (7, 47);
+			pstmt.setString(8, "2018-12-03");
+			pstmt.setInt   (9, 3);
+			pstmt.setInt   (10, 3);
+			pstmt.setString(11, "comments3");
+			pstmt.executeUpdate();
+
+			PreparedStatement pstmt5 = connection.prepareStatement(CREATE_contracts_table_view);
+			pstmt5.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return connection;
 	}
-	public static Connection browseContractTableView() {
-		if (connection == null) 
-			createContractTableView();
-		try {
-			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM contracts_table_view");
-			final ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				final String 
-					contractId = rs.getString("contract_id"),
-					crateDate = rs.getString("date_of_creation"),
-					FIO = rs.getString("fio"),
-					prize = rs.getString("prize"),
-					actalDate = rs.getString("actual_time");
-				FrmStart.display.asyncExec(() -> {
-					TableItem item = new TableItem(FrmStart.window.tableBrowse, 0);
-					item.setText( new String[] {
-							contractId,
-							crateDate,
-							FIO,
-							prize,
-							actalDate
-					});
-				});
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
+	
+	public static final String CREATE_contracts_table_view = 
+			"CREATE VIEW contracts_table_view AS" + "\r\n" + 
+			"SELECT" + "\r\n" +
+			"contract_id," + "\r\n" + 
+			"strftime('%d.%m.%Y', create_date) AS date_of_creation," + "\r\n" +
+			"persons.fio AS fio," + "\r\n" +
+			"prize," + "\r\n" +
+			"strftime('%d.%m.%Y', create_date) || ' - ' || strftime('%d.%m.%Y', actual_date) AS actual_time" + "\r\n" +
+			"FROM contracts" + "\r\n" +
+			"INNER JOIN persons ON persons.person_id = contracts.fio_id";
 	public static final String CREATE_contracts = 
 			"CREATE TABLE contracts (" + "\r\n" + 
-			"contract_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + "\r\n" + 
-			"fio_id INTEGER NOT NULL," + "\r\n" + 
-			"prize REAL," + "\r\n" + 
-			"create_date TEXT," + "\r\n" + 
-			"actual_date TEXT," + "\r\n" +
+			"contract_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + "\r\n" +
+			"tender REAL," + "\r\n" + //1
+			"create_date TEXT," + "\r\n" + //2
+			"actual_date TEXT," + "\r\n" + //3
+			"prize REAL," + "\r\n" + //4
+			"realty_factor_id INTEGER NOT NULL," + "\r\n" + //5
+			"old_year INTEGER NOT NULL," + "\r\n" + //6
+			"square INTEGER NOT NULL," + "\r\n" + //7
+			"calculate_date TEXT," + "\r\n" + //8
+			"fio_id INTEGER NOT NULL," + "\r\n" + //9
+			"adress_id INTEGER NOT NULL," + "\r\n" + //10
+			"comment TEXT," + "\r\n" + //11
+			"FOREIGN KEY(realty_factor_id) REFERENCES realty_factors(realty_factor_id) " + "\r\n" +
+			"ON DELETE NO ACTION ON UPDATE NO ACTION," + 
 			"FOREIGN KEY(fio_id) REFERENCES persons(person_id) " + "\r\n" +
+			"ON DELETE NO ACTION ON UPDATE NO ACTION," + 
+			"FOREIGN KEY(adress_id) REFERENCES adresses(adress_id) " + "\r\n" +
 			"ON DELETE NO ACTION ON UPDATE NO ACTION" + 
+			");";
+	public static final String CREATE_adresses = 
+			"CREATE TABLE adresses (" + "\r\n" + 
+			"adress_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + "\r\n" + 
+			"state TEXT," + "\r\n" + 
+			"idx TEXT," + "\r\n" + 
+			"statecount TEXT," + "\r\n" + 
+			"district TEXT," + "\r\n" + 
+			"city TEXT," + "\r\n" + 
+			"street TEXT," + "\r\n" + 
+			"building TEXT," + "\r\n" + 
+			"corp TEXT," + "\r\n" + 
+			"structure TEXT," + "\r\n" + 
+			"house TEXT" + "\r\n" + 
 			");";
 	public static final String CREATE_realty_factors = 
 			"CREATE TABLE realty_factors (" + "\r\n" + 
@@ -172,15 +238,35 @@ public class Sqlite {
 			"birth_date TEXT," + "\r\n" + 
 			"passport_serial TEXT," + "\r\n" + 
 			"passport_number TEXT" + "\r\n" + 
-			");";
-	public static final String CREATE_contracts_table_view = 
-			"CREATE VIEW contracts_table_view AS" + "\r\n" + 
-			"SELECT" + "\r\n" +
-			"contract_id," + "\r\n" + 
-			"strftime('%d.%m.%Y', create_date) AS date_of_creation," + "\r\n" +
-			"persons.fio AS fio," + "\r\n" +
-			"prize," + "\r\n" +
-			"strftime('%d.%m.%Y', create_date) || ' - ' || strftime('%d.%m.%Y', actual_date) AS actual_time" + "\r\n" +
-			"FROM contracts" + "\r\n" +
-			"INNER JOIN persons ON persons.person_id = contracts.fio_id";
+			");";	
+	
+	public static Connection browseContractTableView() {
+		if (connection == null) 
+			createTables();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM contracts_table_view");
+			final ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				final String 
+					contractId = rs.getString("contract_id"),
+					crateDate = rs.getString("date_of_creation"),
+					FIO = rs.getString("fio"),
+					prize = rs.getString("prize"),
+					actalDate = rs.getString("actual_time");
+				FrmStart.display.asyncExec(() -> {
+					TableItem item = new TableItem(FrmStart.window.tableBrowse, 0);
+					item.setText( new String[] {
+							contractId,
+							crateDate,
+							FIO,
+							prize,
+							actalDate
+					});
+				});
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
 }

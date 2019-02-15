@@ -1,23 +1,26 @@
 package ru.testJr1;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Group;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class FrmStart {
 
@@ -39,8 +42,8 @@ public class FrmStart {
 	private Text txtPassSerial;
 	private Text txtPassNumber;
 	private Text txtState;
-	private Text txtIndex;
-	private Text txtCount;
+	private Text txtIdx;
+	private Text txtStatecount;
 	private Text txtDistrict;
 	private Text txtCity;
 	private Text txtStreet;
@@ -49,6 +52,11 @@ public class FrmStart {
 	private Text txtStructure;
 	private Text txtHouse;
 	private Text txtComment;
+	private TableColumn tblclmnSerialNumber;
+	private TableColumn tblclmnDateCreation;
+	private TableColumn tblclmnInsurer;
+	private TableColumn tblclmnPrize;
+	private TableColumn tblclmnActualTime;
 
 	/**
 	 * Launch the application.
@@ -129,26 +137,65 @@ public class FrmStart {
 		tableBrowse.setLayoutData(gd_tableBrowse);
 		tableBrowse.setHeaderVisible(true);
 		tableBrowse.setLinesVisible(true);
+		tableBrowse.addControlListener(new ControlAdapter() {
+			public void controlResized(ControlEvent e) {
+				Rectangle area = compositeOne.getClientArea();
+				Point preferredSize = tableBrowse.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+				int width = area.width - 2 * tableBrowse.getBorderWidth();
+				if (preferredSize.y > area.height + tableBrowse.getHeaderHeight()) {
+					// Subtract the scrollbar width from the total column width
+					// if a vertical scrollbar will be required
+					Point vBarSize = tableBrowse.getVerticalBar().getSize();
+					width -= vBarSize.x;
+				}
+				Point oldSize = tableBrowse.getSize();
+				if (oldSize.x > area.width) {
+					// table is getting smaller so make the columns
+					// smaller first and then resize the table to
+					// match the client area width
+					tblclmnSerialNumber.setWidth((int) (width * 0.10));
+					tblclmnDateCreation.setWidth((int) (width * 0.15));
+					tblclmnInsurer.setWidth((int) (width * 0.35));
+					tblclmnPrize.setWidth((int) (width * 0.10));
+					tblclmnActualTime.setWidth(width - tblclmnSerialNumber.getWidth() - 
+							tblclmnDateCreation.getWidth() - tblclmnInsurer.getWidth() -
+							tblclmnPrize.getWidth());
+					tableBrowse.setSize(area.width, area.height);
+				}
+				else {
+					// table is getting bigger so make the table
+					// bigger first and then make the columns wider
+					// to match the client area width
+					tblclmnSerialNumber.setWidth((int) (width * 0.10));
+					tblclmnDateCreation.setWidth((int) (width * 0.15));
+					tblclmnInsurer.setWidth((int) (width * 0.35));
+					tblclmnPrize.setWidth((int) (width * 0.10));
+					tblclmnActualTime.setWidth(width - tblclmnSerialNumber.getWidth() - 
+							tblclmnDateCreation.getWidth() - tblclmnInsurer.getWidth() -
+							tblclmnPrize.getWidth());
+				}
+			}
+		});
 		
-		TableColumn tblclmnSerialNumber = new TableColumn(tableBrowse, SWT.NONE);
+		tblclmnSerialNumber = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnSerialNumber.setWidth(100);
 		tblclmnSerialNumber.setText("Серия-Номер");
 		
-		TableColumn tblclmnDateCreation = new TableColumn(tableBrowse, SWT.NONE);
+		tblclmnDateCreation = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnDateCreation.setWidth(127);
 		tblclmnDateCreation.setText("Дата заключения");
 		
-		TableColumn tblclmnInsurer = new TableColumn(tableBrowse, SWT.NONE);
+		tblclmnInsurer = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnInsurer.setWidth(227);
 		tblclmnInsurer.setText("Страхователь");
 		
-		TableColumn tblclmnPrize = new TableColumn(tableBrowse, SWT.NONE);
-		tblclmnPrize.setWidth(136);
+		tblclmnPrize = new TableColumn(tableBrowse, SWT.NONE);
+		tblclmnPrize.setWidth(118);
 		tblclmnPrize.setText("Премия");
 		
-		TableColumn tblclmnActualDate = new TableColumn(tableBrowse, SWT.NONE);
-		tblclmnActualDate.setWidth(189);
-		tblclmnActualDate.setText("Дата окончания");
+		tblclmnActualTime = new TableColumn(tableBrowse, SWT.NONE);
+		tblclmnActualTime.setWidth(189);
+		tblclmnActualTime.setText("Срок действия");
 		
 		TabItem tbtmTwo = new TabItem(tabFolder, SWT.NONE);
 		tbtmTwo.setText("Two");
@@ -379,11 +426,11 @@ public class FrmStart {
 		txtState = new Text(composite, SWT.BORDER);
 		txtState.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		txtIndex = new Text(composite, SWT.BORDER);
-		txtIndex.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txtIdx = new Text(composite, SWT.BORDER);
+		txtIdx.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		txtCount = new Text(composite, SWT.BORDER);
-		txtCount.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
+		txtStatecount = new Text(composite, SWT.BORDER);
+		txtStatecount.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
 		
 		txtDistrict = new Text(composite, SWT.BORDER);
 		txtDistrict.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 4, 1));
@@ -393,16 +440,16 @@ public class FrmStart {
 		lblState.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
 		lblState.setText("государство");
 		
-		Label lblIndex = new Label(composite, SWT.NONE);
-		lblIndex.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
-		lblIndex.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblIndex.setText("индекс");
+		Label lblIdx = new Label(composite, SWT.NONE);
+		lblIdx.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
+		lblIdx.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblIdx.setText("индекс");
 		new Label(composite, SWT.NONE);
 		
-		Label lblCount = new Label(composite, SWT.NONE);
-		lblCount.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblCount.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 3, 1));
-		lblCount.setText("республика, край, область");
+		Label lblStatecount = new Label(composite, SWT.NONE);
+		lblStatecount.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
+		lblStatecount.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 3, 1));
+		lblStatecount.setText("республика, край, область");
 		
 		Label lblDistrict = new Label(composite, SWT.NONE);
 		lblDistrict.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 3, 1));
