@@ -1,8 +1,10 @@
-package ru.testJr1;
+package ru.testJr1.controller;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -10,7 +12,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -19,8 +20,14 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import ru.testJr1.model.Sqlite;
+import ru.testJr1.viewer.SwtViewer;
+import ru.testJr1.viewer.Viewer;
+import ru.testJr1.viewer.WaitDlg;
 
 public class FrmStart {
 
@@ -28,15 +35,15 @@ public class FrmStart {
 	public Table tableBrowse;
 	public static Display display;
 	public static FrmStart window;	
-	private Text txtSum;
+	private Text txtTender;
 	private Text txtBefore;
 	private Text txtUntil;
 	private Text txtOldFactor;
 	private Text txtSquareFactor;
-	private Text txtCalculatedate;
+	private Text txtCalculateDate;
 	private Text txtPrize;
 	private Text txtContractNumber;
-	private Text txtCreatedate;
+	private Text txtCreateDate;
 	private Text txtFio;
 	private Text txtBirthdate;
 	private Text txtPassSerial;
@@ -77,6 +84,8 @@ public class FrmStart {
 	public void open() {
 		display = Display.getDefault();
 		createContents();
+		Controller ctrlr = new Controller();
+		Viewer vwr = new SwtViewer();
 		openDb();
 		shell.open();
 		shell.layout();
@@ -99,7 +108,7 @@ public class FrmStart {
 					dlg.open(); 
 				});
 				Sqlite.browseContractTableView();
-				display.asyncExec(() -> { dlg.shell.dispose(); });
+				display.asyncExec(() -> { dlg.close(); });
 			}
 		};
 		task.start();
@@ -115,6 +124,7 @@ public class FrmStart {
 		shell.setLayout(new GridLayout(1, false));
 		
 		TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
+		tabFolder.setSelection(0);
 		tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 		TabItem tbtmOne = new TabItem(tabFolder, SWT.NONE);
@@ -129,6 +139,17 @@ public class FrmStart {
 		btnCreateContract.setText("Создать договор");
 		
 		Button btnOpenСontract = new Button(compositeOne, SWT.NONE);
+		btnOpenСontract.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				int contractNumber = 0;
+				TableItem[] items = tableBrowse.getSelection();
+				if (items != null && items.length > 0)
+					contractNumber = Integer.parseInt(tableBrowse.getSelection()[0].getText(0));
+				tabFolder.setSelection(1);
+				System.out.println(contractNumber);
+			}
+		});
 		btnOpenСontract.setText("Открыть контракт");
 		
 		tableBrowse = new Table(compositeOne, SWT.BORDER | SWT.FULL_SELECTION);
@@ -143,16 +164,11 @@ public class FrmStart {
 				Point preferredSize = tableBrowse.computeSize(SWT.DEFAULT, SWT.DEFAULT);
 				int width = area.width - 2 * tableBrowse.getBorderWidth();
 				if (preferredSize.y > area.height + tableBrowse.getHeaderHeight()) {
-					// Subtract the scrollbar width from the total column width
-					// if a vertical scrollbar will be required
 					Point vBarSize = tableBrowse.getVerticalBar().getSize();
 					width -= vBarSize.x;
 				}
 				Point oldSize = tableBrowse.getSize();
 				if (oldSize.x > area.width) {
-					// table is getting smaller so make the columns
-					// smaller first and then resize the table to
-					// match the client area width
 					tblclmnSerialNumber.setWidth((int) (width * 0.10));
 					tblclmnDateCreation.setWidth((int) (width * 0.15));
 					tblclmnInsurer.setWidth((int) (width * 0.35));
@@ -163,9 +179,6 @@ public class FrmStart {
 					tableBrowse.setSize(area.width, area.height);
 				}
 				else {
-					// table is getting bigger so make the table
-					// bigger first and then make the columns wider
-					// to match the client area width
 					tblclmnSerialNumber.setWidth((int) (width * 0.10));
 					tblclmnDateCreation.setWidth((int) (width * 0.15));
 					tblclmnInsurer.setWidth((int) (width * 0.35));
@@ -209,16 +222,16 @@ public class FrmStart {
 		grpCalculate.setText("Расчёт");
 		grpCalculate.setLayout(new GridLayout(8, false));
 		
-		Label lblSum = new Label(grpCalculate, SWT.NONE);
-		lblSum.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblSum.setSize(95, 15);
-		lblSum.setText("Страховая сумма");
+		Label lblTender = new Label(grpCalculate, SWT.NONE);
+		lblTender.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblTender.setSize(95, 15);
+		lblTender.setText("Страховая сумма");
 		
-		txtSum = new Text(grpCalculate, SWT.BORDER);
-		GridData gd_txtSum = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
-		gd_txtSum.widthHint = 116;
-		txtSum.setLayoutData(gd_txtSum);
-		txtSum.setSize(169, 21);
+		txtTender = new Text(grpCalculate, SWT.BORDER);
+		GridData gd_txtTender = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_txtTender.widthHint = 116;
+		txtTender.setLayoutData(gd_txtTender);
+		txtTender.setSize(169, 21);
 		
 		Label lblActualtime = new Label(grpCalculate, SWT.NONE);
 		lblActualtime.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -304,14 +317,14 @@ public class FrmStart {
 		new Label(grpCalculate, SWT.NONE);
 		new Label(grpCalculate, SWT.NONE);
 		
-		Label lblCalculatedate = new Label(grpCalculate, SWT.NONE);
-		lblCalculatedate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblCalculatedate.setSize(73, 15);
-		lblCalculatedate.setText("Дата расчёта");
+		Label lblCalculateDate = new Label(grpCalculate, SWT.NONE);
+		lblCalculateDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblCalculateDate.setSize(73, 15);
+		lblCalculateDate.setText("Дата расчёта");
 		
-		txtCalculatedate = new Text(grpCalculate, SWT.BORDER);
-		txtCalculatedate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		txtCalculatedate.setSize(169, 21);
+		txtCalculateDate = new Text(grpCalculate, SWT.BORDER);
+		txtCalculateDate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		txtCalculateDate.setSize(169, 21);
 		
 		Label lblPrize = new Label(grpCalculate, SWT.NONE);
 		lblPrize.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -338,15 +351,15 @@ public class FrmStart {
 		txtContractNumber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(composite, SWT.NONE);
 		
-		Label lblCreatedate = new Label(composite, SWT.NONE);
-		lblCreatedate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblCreatedate.setText("Дата заключения");
+		Label lblCreateDate = new Label(composite, SWT.NONE);
+		lblCreateDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblCreateDate.setText("Дата заключения");
 		
-		txtCreatedate = new Text(composite, SWT.BORDER);
-		txtCreatedate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		txtCreateDate = new Text(composite, SWT.BORDER);
+		txtCreateDate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		Button btnCalendarcreation = new Button(composite, SWT.NONE);
-		btnCalendarcreation.setText("...");
+		Button btnCalendarCreation = new Button(composite, SWT.NONE);
+		btnCalendarCreation.setText("...");
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
@@ -375,7 +388,6 @@ public class FrmStart {
 		lblFio.setText("ФИО");
 		
 		txtFio = new Text(composite, SWT.BORDER);
-		txtFio.setText("FIO");
 		txtFio.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 5, 1));
 		
 		Button btnChange = new Button(composite, SWT.NONE);
@@ -403,9 +415,9 @@ public class FrmStart {
 		gd_txtPassSerial.widthHint = 105;
 		txtPassSerial.setLayoutData(gd_txtPassSerial);
 		
-		Label lblPassnumber = new Label(composite, SWT.NONE);
-		lblPassnumber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblPassnumber.setText("номер");
+		Label lblPassNumber = new Label(composite, SWT.NONE);
+		lblPassNumber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblPassNumber.setText("номер");
 		
 		txtPassNumber = new Text(composite, SWT.BORDER);
 		txtPassNumber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
@@ -448,11 +460,11 @@ public class FrmStart {
 		
 		Label lblStatecount = new Label(composite, SWT.NONE);
 		lblStatecount.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblStatecount.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 3, 1));
+		lblStatecount.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 2, 1));
 		lblStatecount.setText("республика, край, область");
 		
 		Label lblDistrict = new Label(composite, SWT.NONE);
-		lblDistrict.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 3, 1));
+		lblDistrict.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 4, 1));
 		lblDistrict.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
 		lblDistrict.setText("район");
 		
@@ -541,72 +553,5 @@ public class FrmStart {
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
-	}
-	
-	class WaitDlg extends Dialog {
-		private Shell shell;
-		private Label lblWait;
-		public WaitDlg(Shell parent, int style) {
-			super(parent, style);
-			setText("Ждите...");
-		}
-		public void open() {
-			createContents();
-			shell.open();
-			shell.layout();
-			final Display display = getParent().getDisplay();
-			final int time = 306;
-			final Runnable points = new Runnable() {
-				public void run() {
-					if (shell.isDisposed()) return;
-					String s = lblWait.getText();
-					if (s.equals(".   ")) {
-						lblWait.setText("..  ");
-						s = lblWait.getText();
-					}
-					else if (s.equals("..  ")) {
-						lblWait.setText("... ");
-						s = lblWait.getText();
-					}				
-					else if (s.equals("... ")) {
-						lblWait.setText(" ...");
-						s = lblWait.getText();
-					}				
-					else if (s.equals(" ...")) {
-						lblWait.setText("  ..");
-						s = lblWait.getText();
-					}				
-					else if (s.equals("  ..")) {
-						lblWait.setText("   .");
-						s = lblWait.getText();
-					}				
-					else if (s.equals("   .")) {
-						lblWait.setText(".   ");
-						s = lblWait.getText();
-					}				
-					display.timerExec(time, this);
-				}
-			};
-			display.timerExec(time, points);
-			while (!shell.isDisposed()) {
-				if (!display.readAndDispatch()) {
-					display.sleep();
-				}
-			}
-		}
-		private void createContents() {
-			Shell parentShell = getParent();
-			shell = new Shell(parentShell, SWT.BORDER | SWT.TITLE | SWT.APPLICATION_MODAL);
-			shell.setSize(180, 77);
-			Point p = parentShell.getLocation();
-			shell.setLocation(p.x + parentShell.getSize().x / 2 - shell.getSize().x, 
-					p.y + parentShell.getSize().y / 2 - shell.getSize().y);
-			shell.setText(getText());
-			shell.setLayout(new GridLayout(1, false));
-			lblWait = new Label(shell, SWT.NONE);
-			lblWait.setText(".   ");
-			lblWait.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
-			lblWait.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true, 1, 1));
-		}
 	}
 }

@@ -1,4 +1,4 @@
-package ru.testJr1;
+package ru.testJr1.model;
 
 import java.io.File;
 import java.sql.Connection;
@@ -6,8 +6,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import org.eclipse.swt.widgets.TableItem;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+
+import ru.testJr1.controller.FrmStart;
 
 public class Sqlite {
 	public static Connection connection;
@@ -35,6 +45,7 @@ public class Sqlite {
 			connection.createStatement().execute(CREATE_persons);
 			connection.createStatement().execute(CREATE_adresses);
 			connection.createStatement().execute(CREATE_contracts);
+			connection.createStatement().execute(CREATE_contracts_full_view);
 			
 			String insert_realty_factors = "INSERT INTO realty_factors (name, multiplier) VALUES (?,?)";
 			PreparedStatement pstmt0 = connection.prepareStatement(insert_realty_factors);
@@ -178,20 +189,52 @@ public class Sqlite {
 			"strftime('%d.%m.%Y', create_date) || ' - ' || strftime('%d.%m.%Y', actual_date) AS actual_time" + "\r\n" +
 			"FROM contracts" + "\r\n" +
 			"INNER JOIN persons ON persons.person_id = contracts.fio_id";
+	public static final String CREATE_contracts_full_view = 
+			"CREATE VIEW contracts_full_view AS" + "\r\n" + 
+			"SELECT\r\n" + 
+			"tender,\r\n" + 
+			"strftime('%d.%m.%Y', create_date) AS date_of_creation,\r\n" + 
+			"strftime('%d.%m.%Y', actual_date) AS date_of_actual,\r\n" + 
+			"realty_factors.name AS realty_factor_name,\r\n" + 
+			"old_year,\r\n" + 
+			"square,\r\n" + 
+			"strftime('%d.%m.%Y', calculate_date) AS date_of_calculate,\r\n" + 
+			"prize,\r\n" + 
+			"contract_id,\r\n" + 
+			"strftime('%d.%m.%Y', contracts.create_date) AS date_of_creation1,\r\n" + 
+			"persons.fio AS fio,\r\n" + 
+			"persons.birth_date AS birth_date,\r\n" + 
+			"persons.passport_serial AS passport_serial,\r\n" + 
+			"persons.passport_number AS passport_number,\r\n" + 
+			"adresses.state AS state,\r\n" + 
+			"adresses.idx AS idx,\r\n" + 
+			"adresses.statecount AS statecount,\r\n" + 
+			"adresses.district AS district,\r\n" + 
+			"adresses.city AS city,\r\n" + 
+			"adresses.street AS street,\r\n" + 
+			"adresses.building AS building,\r\n" + 
+			"adresses.corp AS corp,\r\n" + 
+			"adresses.structure AS structure,\r\n" + 
+			"adresses.house AS house,\r\n" + 
+			"comment\r\n" + 
+			"FROM contracts\r\n" + 
+			"INNER JOIN persons ON persons.person_id = contracts.fio_id\r\n" + 
+			"INNER JOIN adresses ON adresses.adress_id = contracts.adress_id\r\n" + 
+			"INNER JOIN realty_factors ON realty_factors.realty_factor_id = contracts.realty_factor_id";
 	public static final String CREATE_contracts = 
 			"CREATE TABLE contracts (" + "\r\n" + 
 			"contract_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + "\r\n" +
-			"tender REAL," + "\r\n" + //1
-			"create_date TEXT," + "\r\n" + //2
-			"actual_date TEXT," + "\r\n" + //3
-			"prize REAL," + "\r\n" + //4
-			"realty_factor_id INTEGER NOT NULL," + "\r\n" + //5
-			"old_year INTEGER NOT NULL," + "\r\n" + //6
-			"square INTEGER NOT NULL," + "\r\n" + //7
-			"calculate_date TEXT," + "\r\n" + //8
-			"fio_id INTEGER NOT NULL," + "\r\n" + //9
-			"adress_id INTEGER NOT NULL," + "\r\n" + //10
-			"comment TEXT," + "\r\n" + //11
+			"tender REAL," + "\r\n" + 
+			"create_date TEXT," + "\r\n" +
+			"actual_date TEXT," + "\r\n" +
+			"prize REAL," + "\r\n" +
+			"realty_factor_id INTEGER NOT NULL," + "\r\n" +
+			"old_year INTEGER NOT NULL," + "\r\n" +
+			"square INTEGER NOT NULL," + "\r\n" +
+			"calculate_date TEXT," + "\r\n" +
+			"fio_id INTEGER NOT NULL," + "\r\n" +
+			"adress_id INTEGER NOT NULL," + "\r\n" +
+			"comment TEXT," + "\r\n" +
 			"FOREIGN KEY(realty_factor_id) REFERENCES realty_factors(realty_factor_id) " + "\r\n" +
 			"ON DELETE NO ACTION ON UPDATE NO ACTION," + 
 			"FOREIGN KEY(fio_id) REFERENCES persons(person_id) " + "\r\n" +
@@ -240,6 +283,21 @@ public class Sqlite {
 			"passport_number TEXT" + "\r\n" + 
 			");";	
 	
+	private static SessionFactory sessionFactory = null;  
+	private static ServiceRegistry serviceRegistry = null;  
+	  
+	private static SessionFactory configureSessionFactory() throws HibernateException {  
+	    Configuration configuration = new Configuration();  
+	    configuration.configure();  
+	    
+	    Properties properties = configuration.getProperties();
+	    
+		serviceRegistry = new ServiceRegistryBuilder().applySettings(properties).buildServiceRegistry();          
+	    sessionFactory = configuration.buildSessionFactory(serviceRegistry);  
+	    
+	    return sessionFactory;  
+	}
+	@SuppressWarnings("unchecked")
 	public static Connection browseContractTableView() {
 		if (connection == null) 
 			createTables();
@@ -266,6 +324,27 @@ public class Sqlite {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}		 
+		configureSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = null;
+		try {
+		    transaction = session.beginTransaction();
+		    
+		    DataLists.contactList = session.createQuery("from Contracts").list();
+			DataLists.contractsTableViewList = session.createQuery("from ContractsTableView").list();
+		    DataLists.contractsTableFullList = session.createQuery("from ContractsFullView").list();
+		 
+		    transaction.commit();
+		}
+		catch (RuntimeException e) {
+		    if (transaction != null) {
+		        transaction.rollback();
+		    }
+		    throw e; 
+		}
+		finally {
+			session.close();
 		}
 		return connection;
 	}
