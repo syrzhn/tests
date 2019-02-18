@@ -24,9 +24,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import ru.testJr1.model.DataLists;
 import ru.testJr1.model.Sqlite;
-import ru.testJr1.viewer.SwtViewer;
-import ru.testJr1.viewer.Viewer;
+import ru.testJr1.model.entities.ContractsFullView;
+import ru.testJr1.model.entities.ContractsTableView;
 import ru.testJr1.viewer.WaitDlg;
 
 public class FrmStart {
@@ -84,8 +85,6 @@ public class FrmStart {
 	public void open() {
 		display = Display.getDefault();
 		createContents();
-		Controller ctrlr = new Controller();
-		Viewer vwr = new SwtViewer();
 		openDb();
 		shell.open();
 		shell.layout();
@@ -107,7 +106,25 @@ public class FrmStart {
 					dlg = new WaitDlg(shell, SWT.APPLICATION_MODAL);
 					dlg.open(); 
 				});
-				Sqlite.browseContractTableView();
+				Sqlite.loadDataFromDataBase();
+			    for (ContractsTableView contract : DataLists.contractsTableViewList) {
+			    	final String 
+						contractId       = String.valueOf(contract.getContract_id()),
+						date_of_creation = contract.getDate_of_creation(),
+						fio              = contract.getFio(),
+						prize            = String.valueOf(contract.getPrize()),
+						actalTime        = contract.getActual_time();
+					display.asyncExec(() -> {
+						TableItem item = new TableItem(tableBrowse, 0);
+						item.setText( new String[] {
+								contractId,
+								date_of_creation,
+								fio,
+								prize,
+								actalTime
+						});
+					});
+			    }		 
 				display.asyncExec(() -> { dlg.close(); });
 			}
 		};
@@ -146,8 +163,32 @@ public class FrmStart {
 				TableItem[] items = tableBrowse.getSelection();
 				if (items != null && items.length > 0)
 					contractNumber = Integer.parseInt(tableBrowse.getSelection()[0].getText(0));
+				ContractsFullView contract = DataLists.contractsTableFullList.get(contractNumber - 1);
+				txtTender.setText("" + contract.getTender());
+				txtBefore.setText(contract.getDate_of_creation());
+				txtUntil.setText(contract.getDate_of_actual());
+				txtOldFactor.setText("" + contract.getOld_year());
+				txtSquareFactor.setText("" + contract.getSquare());
+				txtCalculateDate.setText(contract.getDate_of_calculate());
+				txtPrize.setText("" + contract.getPrize());
+				txtContractNumber.setText("" + contract.getContract_id());
+				txtCreateDate.setText(contract.getDate_of_creation1());
+				txtFio.setText(contract.getFio());;
+				txtBirthdate.setText(contract.getBirth_date());
+				txtPassSerial.setText(contract.getPassport_serial());
+				txtPassNumber.setText(contract.getPassport_number());
+				txtState.setText(contract.getState());
+				txtIdx.setText(contract.getIdx());
+				txtStatecount.setText(contract.getStatecount());
+				txtDistrict.setText(contract.getDistrict());
+				txtCity.setText(contract.getCity());
+				txtStreet.setText(contract.getStreet());
+				txtBuilding.setText(contract.getBuilding());
+				txtCorp.setText(contract.getCorp());
+				txtStructure.setText(contract.getStructure());
+				txtHouse.setText(contract.getHouse());
+				txtComment.setText(contract.getComment());
 				tabFolder.setSelection(1);
-				System.out.println(contractNumber);
 			}
 		});
 		btnOpenСontract.setText("Открыть контракт");
@@ -547,6 +588,12 @@ public class FrmStart {
 		btnSave.setText("Сохранить");
 		
 		Button btnBacktocontractlist = new Button(composite, SWT.NONE);
+		btnBacktocontractlist.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				tabFolder.setSelection(0);
+			}
+		});
 		btnBacktocontractlist.setText("К списку договоров");
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);

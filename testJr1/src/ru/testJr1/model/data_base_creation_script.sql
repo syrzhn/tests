@@ -69,44 +69,43 @@ INSERT INTO "old_factors" ("old_factor_id","name","multiplier") VALUES (1,'Меньш
 INSERT INTO "realty_factors" ("realty_factor_id","name","multiplier") VALUES (1,'Квартира',1.7),
  (2,'Дом',1.5),
  (3,'Комната',1.3);
-CREATE VIEW contracts_table_view AS
-SELECT
-contract_id,
-strftime('%d.%m.%Y', create_date) AS date_of_creation,
-persons.fio AS fio,
-prize,
-strftime('%d.%m.%Y', create_date) || ' - ' || strftime('%d.%m.%Y', actual_date) AS actual_time
-FROM contracts
-INNER JOIN persons ON persons.person_id = contracts.fio_id;
-CREATE VIEW contracts_full_view AS
-SELECT
-tender,
-strftime('%d.%m.%Y', create_date) AS date_of_creation,
-strftime('%d.%m.%Y', actual_date) AS date_of_actual,
-realty_factors.name AS realty_factor_name,
-old_year,
-square,
-strftime('%d.%m.%Y', calculate_date) AS date_of_calculate,
-prize,
-contract_id,
-strftime('%d.%m.%Y', contracts.create_date) AS date_of_creation1,
-persons.fio AS fio,
-persons.birth_date AS birth_date,
-persons.passport_serial AS passport_serial,
-persons.passport_number AS passport_number,
-adresses.state AS state,
-adresses.idx AS idx,
-adresses.statecount AS statecount,
-adresses.district AS district,
-adresses.city AS city,
-adresses.street AS street,
-adresses.building AS building,
-adresses.corp AS corp,
-adresses.structure AS structure,
-adresses.house AS house,
-comment
-FROM contracts
-INNER JOIN persons ON persons.person_id = contracts.fio_id
-INNER JOIN adresses ON adresses.adress_id = contracts.adress_id
-INNER JOIN realty_factors ON realty_factors.realty_factor_id = contracts.realty_factor_id;
+CREATE VIEW contracts_table_view AS SELECT
+ contract_id,
+ strftime('%d.%m.%Y', create_date) AS date_of_creation,
+ persons.fio AS fio,
+ prize,
+ strftime('%d.%m.%Y', create_date) || ' - ' || strftime('%d.%m.%Y', actual_date) AS actual_time
+ FROM contracts
+ INNER JOIN persons ON persons.person_id = contracts.fio_id;
+CREATE VIEW contracts_full_view AS SELECT
+ tender,
+ strftime('%d.%m.%Y', create_date) AS date_of_creation,
+ strftime('%d.%m.%Y', actual_date) AS date_of_actual,
+ realty_factors.name AS realty_factor_name,
+ old_year,
+ square,
+ strftime('%d.%m.%Y', calculate_date) AS date_of_calculate,
+ prize,
+ contract_id,
+ strftime('%d.%m.%Y', contracts.create_date) AS date_of_creation1,
+ persons.fio AS fio,
+ persons.birth_date AS birth_date,
+ persons.passport_serial AS passport_serial,
+ persons.passport_number AS passport_number,
+ adresses.state AS state,
+ adresses.idx AS idx,
+ adresses.statecount AS statecount,
+ adresses.district AS district,
+ adresses.city AS city,
+ adresses.street AS street,
+ adresses.building AS building,
+ adresses.corp AS corp,
+ adresses.structure AS structure,
+ adresses.house AS house,
+ comment
+ FROM contracts
+ INNER JOIN persons ON persons.person_id = contracts.fio_id
+ INNER JOIN adresses ON adresses.adress_id = contracts.adress_id
+ INNER JOIN realty_factors ON realty_factors.realty_factor_id = contracts.realty_factor_id;
 COMMIT;
+
