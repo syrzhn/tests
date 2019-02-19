@@ -89,7 +89,7 @@ CREATE VIEW contracts_full_view AS SELECT
  contract_id,
  strftime('%d.%m.%Y', contracts.create_date) AS date_of_creation1,
  persons.fio AS fio,
- persons.birth_date AS birth_date,
+ strftime('%d.%m.%Y', persons.birth_date) AS birth_date,
  persons.passport_serial AS passport_serial,
  persons.passport_number AS passport_number,
  adresses.state AS state,

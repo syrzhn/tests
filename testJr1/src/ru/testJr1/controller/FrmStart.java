@@ -94,9 +94,7 @@ public class FrmStart {
 			}
 		}
 	}
-	/**
-	 * Îòêðûâàåò ÁÄ â îòäåëüíîì ïîòîêå
-	 */
+
 	private void openDb() {
 		Thread task = new Thread () {
 			private WaitDlg dlg;
@@ -106,13 +104,14 @@ public class FrmStart {
 					dlg = new WaitDlg(shell, SWT.APPLICATION_MODAL);
 					dlg.open(); 
 				});
-				Sqlite.loadDataFromDataBase();
+				Sqlite.createDataBase();
+				DataLists.loadDataFromDataBase();
 			    for (ContractsTableView contract : DataLists.contractsTableViewList) {
 			    	final String 
-						contractId       = String.valueOf(contract.getContract_id()),
+						contractId       = contract.getContract_id() + "",
 						date_of_creation = contract.getDate_of_creation(),
 						fio              = contract.getFio(),
-						prize            = String.valueOf(contract.getPrize()),
+						prize            = contract.getPrize() + "",
 						actalTime        = contract.getActual_time();
 					display.asyncExec(() -> {
 						TableItem item = new TableItem(tableBrowse, 0);
@@ -159,19 +158,19 @@ public class FrmStart {
 		btnOpenÑontract.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				int contractNumber = 0;
+				int contractNumber = 1;
 				TableItem[] items = tableBrowse.getSelection();
 				if (items != null && items.length > 0)
 					contractNumber = Integer.parseInt(tableBrowse.getSelection()[0].getText(0));
 				ContractsFullView contract = DataLists.contractsTableFullList.get(contractNumber - 1);
-				txtTender.setText("" + contract.getTender());
+				txtTender.setText(contract.getTender() + "");
 				txtBefore.setText(contract.getDate_of_creation());
 				txtUntil.setText(contract.getDate_of_actual());
-				txtOldFactor.setText("" + contract.getOld_year());
-				txtSquareFactor.setText("" + contract.getSquare());
+				txtOldFactor.setText(contract.getOld_year() + "");
+				txtSquareFactor.setText(contract.getSquare() + "");
 				txtCalculateDate.setText(contract.getDate_of_calculate());
-				txtPrize.setText("" + contract.getPrize());
-				txtContractNumber.setText("" + contract.getContract_id());
+				txtPrize.setText(contract.getPrize() + "");
+				txtContractNumber.setText(contract.getContract_id() + "");
 				txtCreateDate.setText(contract.getDate_of_creation1());
 				txtFio.setText(contract.getFio());;
 				txtBirthdate.setText(contract.getBirth_date());

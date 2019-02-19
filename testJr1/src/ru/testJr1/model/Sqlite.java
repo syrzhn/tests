@@ -7,15 +7,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Properties;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 public class Sqlite {
 	private static boolean dataBaseExists;
@@ -25,7 +16,8 @@ public class Sqlite {
 		File f = new File("db/testJr.db");
 		dataBaseExists = f.exists();
 		try {
-			connection = DriverManager.getConnection("jdbc:sqlite:db/testJr.db");
+			if(connection == null)			
+				connection = DriverManager.getConnection("jdbc:sqlite:db/testJr.db");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -33,8 +25,7 @@ public class Sqlite {
 	}
 	
 	public static Connection createDataBase() {
-		if (connection == null)
-			connection = createConnection();
+		createConnection();
 		if (dataBaseExists)
 			return connection;
 		String scriptPath = "src\\ru\\testJr1\\model\\data_base_creation_script.sql";
@@ -60,46 +51,4 @@ public class Sqlite {
 		}
 		return connection;
 	}	
-	
-	private static SessionFactory sessionFactory = null;  
-	private static ServiceRegistry serviceRegistry = null;  
-	  
-	private static SessionFactory configureSessionFactory() throws HibernateException {  
-	    Configuration configuration = new Configuration();  
-	    configuration.configure();  
-	    
-	    Properties properties = configuration.getProperties();
-	    
-		serviceRegistry = new ServiceRegistryBuilder().applySettings(properties).buildServiceRegistry();          
-	    sessionFactory = configuration.buildSessionFactory(serviceRegistry);  
-	    
-	    return sessionFactory;  
-	}
-	@SuppressWarnings("unchecked")
-	public static Connection loadDataFromDataBase() {
-		if (connection == null) 
-			createDataBase();
-		configureSessionFactory();
-		Session session = sessionFactory.openSession();
-		Transaction transaction = null;
-		try {
-		    transaction = session.beginTransaction();
-		    
-		    DataLists.contactList = session.createQuery("from Contracts").list();
-			DataLists.contractsTableViewList = session.createQuery("from ContractsTableView").list();
-		    DataLists.contractsTableFullList = session.createQuery("from ContractsFullView").list();
-		    
-		    transaction.commit();
-		}
-		catch (RuntimeException e) {
-		    if (transaction != null) {
-		        transaction.rollback();
-		    }
-		    throw e; 
-		}
-		finally {
-			session.close();
-		}
-		return connection;
-	}
 }
