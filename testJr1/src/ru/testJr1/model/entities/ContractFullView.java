@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contracts_full_view")
-public class ContractsFullView {
+public class ContractFullView {
 	private float tender; 
 	public float getTender() {
 		return tender;

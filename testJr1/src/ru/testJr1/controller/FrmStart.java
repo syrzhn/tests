@@ -26,8 +26,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import ru.testJr1.model.DataLists;
 import ru.testJr1.model.Sqlite;
-import ru.testJr1.model.entities.ContractsFullView;
-import ru.testJr1.model.entities.ContractsTableView;
+import ru.testJr1.model.entities.ContractFullView;
+import ru.testJr1.model.entities.ContractTableView;
 import ru.testJr1.viewer.WaitDlg;
 
 public class FrmStart {
@@ -106,7 +106,7 @@ public class FrmStart {
 				});
 				Sqlite.createDataBase();
 				DataLists.loadDataFromDataBase();
-			    for (ContractsTableView contract : DataLists.contractsTableViewList) {
+			    for (ContractTableView contract : DataLists.contractTableViewList) {
 			    	final String 
 						contractId       = contract.getContract_id() + "",
 						date_of_creation = contract.getDate_of_creation(),
@@ -152,6 +152,13 @@ public class FrmStart {
 		new Label(compositeOne, SWT.NONE);
 		
 		Button btnCreateContract = new Button(compositeOne, SWT.NONE);
+		btnCreateContract.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				ContractFullView contract = DataLists.contractTableFullList.get(0);
+				tabFolder.setSelection(1);
+			}
+		});
 		btnCreateContract.setText("Ñîçäàòü äîãîâîð");
 		
 		Button btnOpenÑontract = new Button(compositeOne, SWT.NONE);
@@ -162,7 +169,7 @@ public class FrmStart {
 				TableItem[] items = tableBrowse.getSelection();
 				if (items != null && items.length > 0)
 					contractNumber = Integer.parseInt(tableBrowse.getSelection()[0].getText(0));
-				ContractsFullView contract = DataLists.contractsTableFullList.get(contractNumber - 1);
+				ContractFullView contract = DataLists.contractTableFullList.get(contractNumber - 1);
 				txtTender.setText(contract.getTender() + "");
 				txtBefore.setText(contract.getDate_of_creation());
 				txtUntil.setText(contract.getDate_of_actual());

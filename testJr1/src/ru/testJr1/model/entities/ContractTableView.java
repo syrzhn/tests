@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contracts_table_view")
-public class ContractsTableView {
+public class ContractTableView {
 	@Id
 	public int getContract_id() {
 		return contract_id;

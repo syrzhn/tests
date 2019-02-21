@@ -1,16 +1,27 @@
 package ru.testJr1.model.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "contracts")
-public class Contracts {
+public class Contract {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getContract_id() {
 		return contract_id;
 	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="adress_id")
+	private Adress adress;
+	
 	public void setContract_id(int contract_id) {
 		this.contract_id = contract_id;
 	}
