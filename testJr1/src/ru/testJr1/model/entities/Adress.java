@@ -10,15 +10,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "adresses")
 public class Adress {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getAdress_id() {
 		return adress_id;
 	}
-	
-	@OneToOne(mappedBy = "adress")
-	private Contract owner;
-
 	public void setAdress_id(int adress_id) {
 		this.adress_id = adress_id;
 	}
@@ -82,7 +76,8 @@ public class Adress {
 	public void setHouse(String house) {
 		this.house = house;
 	}
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int adress_id;
 	private String state;
 	private String idx;
@@ -94,4 +89,6 @@ public class Adress {
 	private String corp;
 	private String structure;
 	private String house;
+//	@OneToOne(mappedBy = "adress")
+//	private Contract owner;
 }

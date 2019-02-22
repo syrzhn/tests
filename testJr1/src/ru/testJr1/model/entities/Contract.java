@@ -6,22 +6,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "contracts")
 public class Contract {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getContract_id() {
 		return contract_id;
 	}
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="adress_id")
-	private Adress adress;
-	
+	public RealtyFactor getRealtyFactor() {
+		return realtyFactor;
+	}
+	public void setRealtyFactor(RealtyFactor realtyFactor) {
+		this.realtyFactor = realtyFactor;
+	}
+//	public Person getPerson() {
+//		return person;
+//	}
+//	public void setPerson(Person person) {
+//		this.person = person;
+//	}
+//	public Adress getAdress() {
+//		return adress;
+//	}
+//	public void setAdress(Adress adress) {
+//		this.adress = adress;
+//	}
 	public void setContract_id(int contract_id) {
 		this.contract_id = contract_id;
 	}
@@ -90,8 +102,9 @@ public class Contract {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
-	}	
-
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int contract_id;
 	private float tender;
 	private String create_date;
@@ -103,5 +116,17 @@ public class Contract {
 	private String calculate_date;
 	private int fio_id;
 	private int adress_id;
-	private String comment;
+	private String comment;	
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="realty_factor_id", 
+    referencedColumnName = "realty_factor_id", 
+    insertable = false, updatable = false)
+	private RealtyFactor realtyFactor;	
+//	@OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="person_id")
+//	private Person person;
+//	
+//	@OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="adress_id")
+//	private Adress adress;
 }

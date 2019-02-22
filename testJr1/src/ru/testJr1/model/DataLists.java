@@ -9,18 +9,21 @@ import ru.testJr1.model.entities.Adress;
 import ru.testJr1.model.entities.Contract;
 import ru.testJr1.model.entities.ContractFullView;
 import ru.testJr1.model.entities.ContractTableView;
+import ru.testJr1.model.entities.OldFactor;
 import ru.testJr1.model.entities.Person;
+import ru.testJr1.model.entities.RealtyFactor;
+import ru.testJr1.model.entities.SquareFactor;
 import ru.testJr1.utils.HibernateUtil;
 
 public class DataLists {
 	public static List<Adress> adressList;
 	public static List<Contract> contactList;
+	public static List<Person> personList;
+	public static List<SquareFactor> squareFactorList;
+	public static List<OldFactor> oldFactorList;
+	public static List<RealtyFactor> realtyFactorList;
     public static List<ContractTableView> contractTableViewList;
     public static List<ContractFullView> contractTableFullList;
-	public static List<Person> personList;
-	public static List<Person> squareFactorList;
-	public static List<Person> oldFactorList;
-	public static List<Person> realtyFactorList;
 	@SuppressWarnings("unchecked")
 	public static void loadDataFromDataBase() {
 		Session session = HibernateUtil.getSessionFactory().openSession();

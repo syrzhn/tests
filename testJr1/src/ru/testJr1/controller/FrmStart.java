@@ -23,11 +23,17 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import ru.testJr1.model.DataLists;
 import ru.testJr1.model.Sqlite;
+import ru.testJr1.model.entities.Adress;
+import ru.testJr1.model.entities.Contract;
 import ru.testJr1.model.entities.ContractFullView;
 import ru.testJr1.model.entities.ContractTableView;
+import ru.testJr1.model.entities.Person;
+import ru.testJr1.utils.HibernateUtil;
 import ru.testJr1.viewer.WaitDlg;
 
 public class FrmStart {
@@ -156,6 +162,30 @@ public class FrmStart {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				ContractFullView contract = DataLists.contractTableFullList.get(0);
+				txtTender.setText(contract.getTender() + "");
+				txtBefore.setText(contract.getDate_of_creation());
+				txtUntil.setText(contract.getDate_of_actual());
+				txtOldFactor.setText(contract.getOld_year() + "");
+				txtSquareFactor.setText(contract.getSquare() + "");
+				txtCalculateDate.setText(contract.getDate_of_calculate());
+				txtPrize.setText(contract.getPrize() + "");
+				txtContractNumber.setText(contract.getContract_id() + "");
+				txtCreateDate.setText(contract.getDate_of_creation1());
+				txtFio.setText(contract.getFio());;
+				txtBirthdate.setText(contract.getBirth_date());
+				txtPassSerial.setText(contract.getPassport_serial());
+				txtPassNumber.setText(contract.getPassport_number());
+				txtState.setText(contract.getState());
+				txtIdx.setText(contract.getIdx());
+				txtStatecount.setText(contract.getStatecount());
+				txtDistrict.setText(contract.getDistrict());
+				txtCity.setText(contract.getCity());
+				txtStreet.setText(contract.getStreet());
+				txtBuilding.setText(contract.getBuilding());
+				txtCorp.setText(contract.getCorp());
+				txtStructure.setText(contract.getStructure());
+				txtHouse.setText(contract.getHouse());
+				txtComment.setText(contract.getComment());
 				tabFolder.setSelection(1);
 			}
 		});
@@ -590,6 +620,60 @@ public class FrmStart {
 		new Label(composite, SWT.NONE);
 		
 		Button btnSave = new Button(composite, SWT.NONE);
+		btnSave.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				Transaction transaction = null;
+				try {
+				    transaction = session.beginTransaction();
+				    
+				    Contract newContract = new Contract();
+					newContract.setTender(Float.valueOf(txtTender.getText()));
+					newContract.setCreate_date(txtBefore.getText());
+					newContract.setActual_date(txtUntil.getText());
+					newContract.setPrize(Float.valueOf(txtPrize.getText()));
+					newContract.setOld_year(Integer.valueOf(txtOldFactor.getText()));
+					newContract.setSquare(Integer.valueOf(txtSquareFactor.getText()));
+					newContract.setCalculate_date(txtCalculateDate.getText());
+					newContract.setComment(txtComment.getText());
+					
+//					Person newPerson = new Person(); 
+//					newPerson.setFio(txtFio.getText());
+//					newPerson.setBirth_date(txtBirthdate.getText());
+//					newPerson.setPassport_serial(txtPassSerial.getText());
+//					newPerson.setPassport_number(txtPassNumber.getText());
+//					session.save(newPerson);
+//					newContract.setPerson(newPerson);
+//					
+//					Adress newAdress = new Adress();
+//					newAdress.setState(txtState.getText());
+//					newAdress.setIdx(txtIdx.getText());
+//					newAdress.setStatecount(txtStatecount.getText());
+//					newAdress.setDistrict(txtDistrict.getText());
+//					newAdress.setCity(txtCity.getText());
+//					newAdress.setStreet(txtStreet.getText());
+//					newAdress.setBuilding(txtBuilding.getText());
+//					newAdress.setCorp(txtCorp.getText());
+//					newAdress.setStructure(txtStructure.getText());
+//					newAdress.setHouse(txtHouse.getText());
+//					session.save(newAdress);
+//					newContract.setAdress(newAdress);
+				    
+					session.save(newContract);
+					transaction.commit();
+				}
+				catch (RuntimeException e) {
+				    if (transaction != null) {
+				        transaction.rollback();
+				    }
+				    throw e; 
+				}
+				finally {
+					session.close();
+				}
+			}
+		});
 		btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
 		btnSave.setText("Сохранить");
 		
