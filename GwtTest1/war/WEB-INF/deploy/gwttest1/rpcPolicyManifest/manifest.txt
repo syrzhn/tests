@@ -1,0 +1,3 @@
+# Module gwttest1
+# RPC service class, partial path of RPC policy file
+ru.syrzhn.client.GreetingService, 8941A2847FB2F30AD9E81A6CCA808DAA.gwt.rpc
