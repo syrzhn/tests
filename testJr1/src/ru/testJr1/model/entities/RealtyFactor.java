@@ -12,6 +12,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "realty_factors")
 public class RealtyFactor {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int realty_factor_id;
+	private String name;
+	private float multiplier;
+	@OneToMany(mappedBy = "realtyFactor")
+	private Collection<Contract> contracts;
+
 	public int getRealty_factor_id() {
 		return realty_factor_id;
 	}
@@ -30,12 +38,5 @@ public class RealtyFactor {
 	public void setMultiplier(float multiplier) {
 		this.multiplier = multiplier;
 	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int realty_factor_id;
-	private String name;
-	private float multiplier;
-	@OneToMany(mappedBy = "realtyFactor")
-	private Collection<Contract> contracts;
 }
 

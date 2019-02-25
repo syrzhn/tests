@@ -10,6 +10,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "persons")
 public class Person {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int person_id;
+	private String fio;
+	private String birth_date;
+	private String passport_serial;
+	private String passport_number;
+	@OneToOne(mappedBy = "person")
+	private Contract owner;
+	
 	public int getPerson_id() {
 		return person_id;
 	}
@@ -40,13 +50,4 @@ public class Person {
 	public void setPassport_number(String passport_number) {
 		this.passport_number = passport_number;
 	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int person_id;
-	private String fio;
-	private String birth_date;
-	private String passport_serial;
-	private String passport_number;
-//	@OneToOne(mappedBy = "person")
-//	private Contract owner;
 }

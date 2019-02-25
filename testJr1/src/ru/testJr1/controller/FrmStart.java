@@ -638,27 +638,27 @@ public class FrmStart {
 					newContract.setCalculate_date(txtCalculateDate.getText());
 					newContract.setComment(txtComment.getText());
 					
-//					Person newPerson = new Person(); 
-//					newPerson.setFio(txtFio.getText());
-//					newPerson.setBirth_date(txtBirthdate.getText());
-//					newPerson.setPassport_serial(txtPassSerial.getText());
-//					newPerson.setPassport_number(txtPassNumber.getText());
-//					session.save(newPerson);
-//					newContract.setPerson(newPerson);
-//					
-//					Adress newAdress = new Adress();
-//					newAdress.setState(txtState.getText());
-//					newAdress.setIdx(txtIdx.getText());
-//					newAdress.setStatecount(txtStatecount.getText());
-//					newAdress.setDistrict(txtDistrict.getText());
-//					newAdress.setCity(txtCity.getText());
-//					newAdress.setStreet(txtStreet.getText());
-//					newAdress.setBuilding(txtBuilding.getText());
-//					newAdress.setCorp(txtCorp.getText());
-//					newAdress.setStructure(txtStructure.getText());
-//					newAdress.setHouse(txtHouse.getText());
-//					session.save(newAdress);
-//					newContract.setAdress(newAdress);
+					Person newPerson = new Person(); 
+					newPerson.setFio(txtFio.getText());
+					newPerson.setBirth_date(txtBirthdate.getText());
+					newPerson.setPassport_serial(txtPassSerial.getText());
+					newPerson.setPassport_number(txtPassNumber.getText());
+					session.save(newPerson);
+					newContract.setPerson(newPerson);
+					
+					Adress newAdress = new Adress();
+					newAdress.setState(txtState.getText());
+					newAdress.setIdx(txtIdx.getText());
+					newAdress.setStatecount(txtStatecount.getText());
+					newAdress.setDistrict(txtDistrict.getText());
+					newAdress.setCity(txtCity.getText());
+					newAdress.setStreet(txtStreet.getText());
+					newAdress.setBuilding(txtBuilding.getText());
+					newAdress.setCorp(txtCorp.getText());
+					newAdress.setStructure(txtStructure.getText());
+					newAdress.setHouse(txtHouse.getText());
+					session.save(newAdress);
+					newContract.setAdress(newAdress);
 				    
 					session.save(newContract);
 					transaction.commit();

@@ -13,6 +13,45 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "contracts")
 public class Contract {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int contract_id;
+	private float tender;
+	private String create_date;
+	private String actual_date;
+	private float prize;
+	private int realty_factor_id;
+	private int old_year;
+	private int square;
+	private String calculate_date;
+	private int person_id;
+	private int adress_id;
+	private String comment;	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "realty_factor_id", referencedColumnName = "realty_factor_id",
+    	insertable = false, updatable = false)
+	private RealtyFactor realtyFactor;	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id",
+        	insertable = false, updatable = false)
+	private Person person;	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "adress_id", referencedColumnName = "adress_id",
+        	insertable = false, updatable = false)
+	private Adress adress;
+
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	public Adress getAdress() {
+		return adress;
+	}
+	public void setAdress(Adress adress) {
+		this.adress = adress;
+	}
 	public int getContract_id() {
 		return contract_id;
 	}
@@ -22,18 +61,6 @@ public class Contract {
 	public void setRealtyFactor(RealtyFactor realtyFactor) {
 		this.realtyFactor = realtyFactor;
 	}
-//	public Person getPerson() {
-//		return person;
-//	}
-//	public void setPerson(Person person) {
-//		this.person = person;
-//	}
-//	public Adress getAdress() {
-//		return adress;
-//	}
-//	public void setAdress(Adress adress) {
-//		this.adress = adress;
-//	}
 	public void setContract_id(int contract_id) {
 		this.contract_id = contract_id;
 	}
@@ -85,11 +112,11 @@ public class Contract {
 	public void setCalculate_date(String calculate_date) {
 		this.calculate_date = calculate_date;
 	}
-	public int getFio_id() {
-		return fio_id;
+	public int getPerson_id() {
+		return person_id;
 	}
-	public void setFio_id(int fio_id) {
-		this.fio_id = fio_id;
+	public void setPerson_id(int fio_id) {
+		this.person_id = fio_id;
 	}
 	public int getAdress_id() {
 		return adress_id;
@@ -103,30 +130,4 @@ public class Contract {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int contract_id;
-	private float tender;
-	private String create_date;
-	private String actual_date;
-	private float prize;
-	private int realty_factor_id;
-	private int old_year;
-	private int square;
-	private String calculate_date;
-	private int fio_id;
-	private int adress_id;
-	private String comment;	
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="realty_factor_id", 
-    referencedColumnName = "realty_factor_id", 
-    insertable = false, updatable = false)
-	private RealtyFactor realtyFactor;	
-//	@OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="person_id")
-//	private Person person;
-//	
-//	@OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="adress_id")
-//	private Adress adress;
 }
