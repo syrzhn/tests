@@ -71,6 +71,7 @@ public class FrmStart {
 	private TableColumn tblclmnInsurer;
 	private TableColumn tblclmnPrize;
 	private TableColumn tblclmnActualTime;
+	private Combo comboRealtyFactor;
 
 	/**
 	 * Launch the application.
@@ -165,6 +166,7 @@ public class FrmStart {
 				txtTender.setText(contract.getTender() + "");
 				txtBefore.setText(contract.getDate_of_creation());
 				txtUntil.setText(contract.getDate_of_actual());
+				comboRealtyFactor.setText(contract.getRealty_factor_name());
 				txtOldFactor.setText(contract.getOld_year() + "");
 				txtSquareFactor.setText(contract.getSquare() + "");
 				txtCalculateDate.setText(contract.getDate_of_calculate());
@@ -203,6 +205,7 @@ public class FrmStart {
 				txtTender.setText(contract.getTender() + "");
 				txtBefore.setText(contract.getDate_of_creation());
 				txtUntil.setText(contract.getDate_of_actual());
+				comboRealtyFactor.setText(contract.getRealty_factor_name());
 				txtOldFactor.setText(contract.getOld_year() + "");
 				txtSquareFactor.setText(contract.getSquare() + "");
 				txtCalculateDate.setText(contract.getDate_of_calculate());
@@ -342,7 +345,7 @@ public class FrmStart {
 		lblRealtyFactor.setSize(106, 15);
 		lblRealtyFactor.setText("Тип недвижимости");
 		
-		Combo comboRealtyFactor = new Combo(grpCalculate, SWT.NONE);
+		comboRealtyFactor = new Combo(grpCalculate, SWT.NONE);
 		comboRealtyFactor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		comboRealtyFactor.setSize(169, 23);
 		new Label(grpCalculate, SWT.NONE);
@@ -627,16 +630,6 @@ public class FrmStart {
 				Transaction transaction = null;
 				try {
 				    transaction = session.beginTransaction();
-				    
-				    Contract newContract = new Contract();
-					newContract.setTender(Float.valueOf(txtTender.getText()));
-					newContract.setCreate_date(txtBefore.getText());
-					newContract.setActual_date(txtUntil.getText());
-					newContract.setPrize(Float.valueOf(txtPrize.getText()));
-					newContract.setOld_year(Integer.valueOf(txtOldFactor.getText()));
-					newContract.setSquare(Integer.valueOf(txtSquareFactor.getText()));
-					newContract.setCalculate_date(txtCalculateDate.getText());
-					newContract.setComment(txtComment.getText());
 					
 					Person newPerson = new Person(); 
 					newPerson.setFio(txtFio.getText());
@@ -644,7 +637,6 @@ public class FrmStart {
 					newPerson.setPassport_serial(txtPassSerial.getText());
 					newPerson.setPassport_number(txtPassNumber.getText());
 					session.save(newPerson);
-					newContract.setPerson(newPerson);
 					
 					Adress newAdress = new Adress();
 					newAdress.setState(txtState.getText());
@@ -658,6 +650,17 @@ public class FrmStart {
 					newAdress.setStructure(txtStructure.getText());
 					newAdress.setHouse(txtHouse.getText());
 					session.save(newAdress);
+				    
+				    Contract newContract = new Contract();
+					newContract.setTender(Float.valueOf(txtTender.getText()));
+					newContract.setCreate_date(txtBefore.getText());
+					newContract.setActual_date(txtUntil.getText());
+					newContract.setPrize(Float.valueOf(txtPrize.getText()));
+					newContract.setOld_year(Integer.valueOf(txtOldFactor.getText()));
+					newContract.setSquare(Integer.valueOf(txtSquareFactor.getText()));
+					newContract.setCalculate_date(txtCalculateDate.getText());
+					newContract.setComment(txtComment.getText());
+					newContract.setPerson(newPerson);
 					newContract.setAdress(newAdress);
 				    
 					session.save(newContract);

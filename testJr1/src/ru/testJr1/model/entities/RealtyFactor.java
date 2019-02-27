@@ -1,7 +1,8 @@
 package ru.testJr1.model.entities;
 
-import java.util.Collection;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,14 +13,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "realty_factors")
 public class RealtyFactor {
+	public RealtyFactor(){}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int realty_factor_id;
 	private String name;
 	private float multiplier;
-	@OneToMany(mappedBy = "realtyFactor")
-	private Collection<Contract> contracts;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "realtyFactor")
+	private Set<Contract> contracts;
 
+	public Set<Contract> getContracts() {
+		return contracts;
+	}
+	public void setContracts(Set<Contract> contracts) {
+		this.contracts = contracts;
+	}
 	public int getRealty_factor_id() {
 		return realty_factor_id;
 	}

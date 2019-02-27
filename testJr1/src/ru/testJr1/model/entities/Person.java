@@ -1,15 +1,20 @@
 package ru.testJr1.model.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "persons")
 public class Person {
+	public Person() {}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int person_id;
@@ -17,9 +22,15 @@ public class Person {
 	private String birth_date;
 	private String passport_serial;
 	private String passport_number;
-	@OneToOne(mappedBy = "person")
-	private Contract owner;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+	private Set<Contract> contracts = new HashSet<>();
 	
+	public Set<Contract> getContracts() {
+		return contracts;
+	}
+	public void setContracts(Set<Contract> contracts) {
+		this.contracts = contracts;
+	}
 	public int getPerson_id() {
 		return person_id;
 	}
