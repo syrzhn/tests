@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS "contracts" (
 	"create_date"	TEXT,
 	"actual_date"	TEXT,
 	"prize"	REAL,
-	"fk_realty_factor_id"	INTEGER NOT NULL,
+	"fk_realty_factor_id" INTEGER DEFAULT 1 NOT NULL,
 	"old_year"	INTEGER NOT NULL,
 	"square"	INTEGER NOT NULL,
 	"calculate_date"	TEXT,

@@ -33,8 +33,10 @@ import ru.testJr1.model.entities.Contract;
 import ru.testJr1.model.entities.ContractFullView;
 import ru.testJr1.model.entities.ContractTableView;
 import ru.testJr1.model.entities.Person;
+import ru.testJr1.model.entities.RealtyFactor;
 import ru.testJr1.utils.HibernateUtil;
 import ru.testJr1.viewer.WaitDlg;
+import static ru.testJr1.viewer.Utils.stringToSqliteDate;
 
 public class FrmStart {
 
@@ -113,24 +115,23 @@ public class FrmStart {
 				});
 				Sqlite.createDataBase();
 				DataLists.loadDataFromDataBase();
-			    for (ContractTableView contract : DataLists.contractTableViewList) {
-			    	final String 
-						contractId       = contract.getContract_id() + "",
-						date_of_creation = contract.getDate_of_creation(),
-						fio              = contract.getFio(),
-						prize            = contract.getPrize() + "",
-						actalTime        = contract.getActual_time();
-					display.asyncExec(() -> {
+				display.asyncExec(() -> {
+					tableBrowse.removeAll();
+				    for (ContractTableView contract : DataLists.contractTableViewList) {
 						TableItem item = new TableItem(tableBrowse, 0);
 						item.setText( new String[] {
-								contractId,
-								date_of_creation,
-								fio,
-								prize,
-								actalTime
+								contract.getContract_id() + "",
+								contract.getDate_of_creation(),
+								contract.getFio(),
+								contract.getPrize() + "",
+								contract.getActual_time()
 						});
-					});
-			    }		 
+				    }
+				    comboRealtyFactor.removeAll();
+				    for (RealtyFactor rf : DataLists.realtyFactorList) {
+					    comboRealtyFactor.add(rf.getName());
+				    }
+				});
 				display.asyncExec(() -> { dlg.close(); });
 			}
 		};
@@ -173,7 +174,7 @@ public class FrmStart {
 				txtPrize.setText(contract.getPrize() + "");
 				txtContractNumber.setText(contract.getContract_id() + "");
 				txtCreateDate.setText(contract.getDate_of_creation1());
-				txtFio.setText(contract.getFio());;
+				txtFio.setText(contract.getFio());
 				txtBirthdate.setText(contract.getBirth_date());
 				txtPassSerial.setText(contract.getPassport_serial());
 				txtPassNumber.setText(contract.getPassport_number());
@@ -633,7 +634,7 @@ public class FrmStart {
 					
 					Person newPerson = new Person(); 
 					newPerson.setFio(txtFio.getText());
-					newPerson.setBirth_date(txtBirthdate.getText());
+					newPerson.setBirth_date(stringToSqliteDate(txtBirthdate.getText()));
 					newPerson.setPassport_serial(txtPassSerial.getText());
 					newPerson.setPassport_number(txtPassNumber.getText());
 					session.save(newPerson);
@@ -650,16 +651,20 @@ public class FrmStart {
 					newAdress.setStructure(txtStructure.getText());
 					newAdress.setHouse(txtHouse.getText());
 					session.save(newAdress);
+					
+					RealtyFactor realtyFactor = DataLists.realtyFactorList.get(
+							comboRealtyFactor.getSelectionIndex());
 				    
 				    Contract newContract = new Contract();
 					newContract.setTender(Float.valueOf(txtTender.getText()));
-					newContract.setCreate_date(txtBefore.getText());
-					newContract.setActual_date(txtUntil.getText());
+					newContract.setCreate_date(stringToSqliteDate(txtBefore.getText()));
+					newContract.setActual_date(stringToSqliteDate(txtUntil.getText()));
 					newContract.setPrize(Float.valueOf(txtPrize.getText()));
 					newContract.setOld_year(Integer.valueOf(txtOldFactor.getText()));
 					newContract.setSquare(Integer.valueOf(txtSquareFactor.getText()));
-					newContract.setCalculate_date(txtCalculateDate.getText());
+					newContract.setCalculate_date(stringToSqliteDate(txtCalculateDate.getText()));
 					newContract.setComment(txtComment.getText());
+					newContract.setRealtyFactor(realtyFactor);
 					newContract.setPerson(newPerson);
 					newContract.setAdress(newAdress);
 				    
@@ -675,6 +680,7 @@ public class FrmStart {
 				finally {
 					session.close();
 				}
+				openDb();
 			}
 		});
 		btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));

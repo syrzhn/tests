@@ -26,13 +26,13 @@ public class Contract {
 	private int fk_person_id;
 	private int fk_adress_id;
 	private String comment;	
-	@ManyToOne
+	@ManyToOne(optional = false)
     @JoinColumn(name = "fk_realty_factor_id", insertable = false, updatable = false)
 	private RealtyFactor realtyFactor;	
-	@ManyToOne
+	@ManyToOne(optional = false)
     @JoinColumn(name = "fk_person_id", insertable = false, updatable = false)
 	private Person person;	
-	@ManyToOne
+	@ManyToOne(optional = false)
     @JoinColumn(name = "fk_adress_id", insertable = false, updatable = false)
 	private Adress adress;
 
