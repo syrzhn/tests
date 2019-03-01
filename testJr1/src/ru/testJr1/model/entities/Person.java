@@ -1,5 +1,7 @@
 package ru.testJr1.model.entities;
 
+import static ru.testJr1.model.Utils.stringToSqliteDate;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,7 +49,7 @@ public class Person {
 		return birth_date;
 	}
 	public void setBirth_date(String birth_date) {
-		this.birth_date = birth_date;
+		this.birth_date = stringToSqliteDate(birth_date);
 	}
 	public String getPassport_serial() {
 		return passport_serial;

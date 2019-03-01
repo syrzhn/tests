@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import static ru.testJr1.model.Utils.stringToSqliteDate;
 
 @Entity
 @Table(name = "contracts")
@@ -67,13 +68,13 @@ public class Contract {
 		return create_date;
 	}
 	public void setCreate_date(String create_date) {
-		this.create_date = create_date;
+		this.create_date = stringToSqliteDate(create_date);
 	}
 	public String getActual_date() {
 		return actual_date;
 	}
 	public void setActual_date(String actual_date) {
-		this.actual_date = actual_date;
+		this.actual_date = stringToSqliteDate(actual_date);
 	}
 	public float getTender() {
 		return tender;
@@ -109,7 +110,7 @@ public class Contract {
 		return calculate_date;
 	}
 	public void setCalculate_date(String calculate_date) {
-		this.calculate_date = calculate_date;
+		this.calculate_date = stringToSqliteDate(calculate_date);
 	}
 	public int getPerson_id() {
 		return fk_person_id;

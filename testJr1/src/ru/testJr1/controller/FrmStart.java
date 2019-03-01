@@ -36,7 +36,6 @@ import ru.testJr1.model.entities.Person;
 import ru.testJr1.model.entities.RealtyFactor;
 import ru.testJr1.utils.HibernateUtil;
 import ru.testJr1.viewer.WaitDlg;
-import static ru.testJr1.viewer.Utils.stringToSqliteDate;
 
 public class FrmStart {
 
@@ -634,7 +633,7 @@ public class FrmStart {
 					
 					Person newPerson = new Person(); 
 					newPerson.setFio(txtFio.getText());
-					newPerson.setBirth_date(stringToSqliteDate(txtBirthdate.getText()));
+					newPerson.setBirth_date(txtBirthdate.getText());
 					newPerson.setPassport_serial(txtPassSerial.getText());
 					newPerson.setPassport_number(txtPassNumber.getText());
 					session.save(newPerson);
@@ -657,12 +656,12 @@ public class FrmStart {
 				    
 				    Contract newContract = new Contract();
 					newContract.setTender(Float.valueOf(txtTender.getText()));
-					newContract.setCreate_date(stringToSqliteDate(txtBefore.getText()));
-					newContract.setActual_date(stringToSqliteDate(txtUntil.getText()));
+					newContract.setCreate_date(txtBefore.getText());
+					newContract.setActual_date(txtUntil.getText());
 					newContract.setPrize(Float.valueOf(txtPrize.getText()));
 					newContract.setOld_year(Integer.valueOf(txtOldFactor.getText()));
 					newContract.setSquare(Integer.valueOf(txtSquareFactor.getText()));
-					newContract.setCalculate_date(stringToSqliteDate(txtCalculateDate.getText()));
+					newContract.setCalculate_date(txtCalculateDate.getText());
 					newContract.setComment(txtComment.getText());
 					newContract.setRealtyFactor(realtyFactor);
 					newContract.setPerson(newPerson);
