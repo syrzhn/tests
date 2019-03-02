@@ -18,9 +18,11 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
-
+  <inherits name="com.sencha.gxt.ui.GXT" />
+  
   <!-- Specify the app entry point class.                         -->
   <entry-point class='ru.syrzhn.client.GwtTest1'/>
+  
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
