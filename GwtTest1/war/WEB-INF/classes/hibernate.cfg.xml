@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
+		<property name="connection.driver_class">org.sqlite.JDBC</property>
+		<property name="connection.url">jdbc:sqlite:db/testJr.db</property>
+		
+		<mapping class="ru.syrzhn.shared.entities.Contract"/>
+		<mapping class="ru.syrzhn.shared.entities.Adress"/>
+		<mapping class="ru.syrzhn.shared.entities.Person"/>
+		<mapping class="ru.syrzhn.shared.entities.SquareFactor"/>
+		<mapping class="ru.syrzhn.shared.entities.OldFactor"/>
+		<mapping class="ru.syrzhn.shared.entities.RealtyFactor"/>
+		<mapping class="ru.syrzhn.shared.entities.ContractTableView"/>
+		<mapping class="ru.syrzhn.shared.entities.ContractFullView"/>
+	</session-factory>
+</hibernate-configuration>
