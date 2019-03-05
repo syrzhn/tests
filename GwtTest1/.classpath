@@ -7,16 +7,16 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/smartgwt-2.4.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/antlr-2.7.7.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/hibernate-commons-annotations-4.0.1.final.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/hibernate-core-4.0.1.final.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.1.final.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/javassist-3.12.1.ga.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/jboss-logging-3.1.0.cr2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/jboss-transaction-api_1.1_spec-1.0.1.final.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/sqlite-jdbc-3.21.0.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/swt.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/hibernate-commons-annotations-4.0.1.final.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/hibernate-core-4.0.1.final.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/hibernate-jpa-2.0-api-1.0.1.final.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/javassist-3.12.1.ga.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/jboss-logging-3.1.0.cr2.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/jboss-transaction-api_1.1_spec-1.0.1.final.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/sqlite-jdbc-3.21.0.jar"/>
+	<classpathentry kind="lib" path="C:/workspace/hibernate_libs/swt.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
