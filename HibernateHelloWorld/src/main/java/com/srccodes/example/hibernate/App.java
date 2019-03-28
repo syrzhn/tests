@@ -67,7 +67,7 @@ public class App {
 			// Rolling back the changes to make the data consistent in case of any failure 
 			// in between multiple database write operations.
 			tx.rollback();
-		} finally{
+		} finally {
 			if(session != null) {
 				session.close();
 			}
