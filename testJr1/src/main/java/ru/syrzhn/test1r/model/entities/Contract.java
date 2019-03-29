@@ -1,4 +1,4 @@
-package ru.testJr1.model.entities;
+package ru.syrzhn.test1r.model.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import static ru.testJr1.model.Utils.stringToSqliteDate;
+import static ru.syrzhn.test1r.model.Utils.stringToSqliteDate;
 
 @Entity
 @Table(name = "contracts")

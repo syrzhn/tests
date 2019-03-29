@@ -1,4 +1,4 @@
-package ru.testJr1.viewer;
+package ru.syrzhn.test1r.viewer;
 
 public class SwtViewer extends Viewer {
 }

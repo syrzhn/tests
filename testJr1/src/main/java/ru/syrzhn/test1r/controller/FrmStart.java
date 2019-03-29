@@ -1,4 +1,4 @@
-package ru.testJr1.controller;
+package ru.syrzhn.test1r.controller;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
@@ -26,16 +26,16 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import ru.testJr1.model.DataLists;
-import ru.testJr1.model.Sqlite;
-import ru.testJr1.model.entities.Adress;
-import ru.testJr1.model.entities.Contract;
-import ru.testJr1.model.entities.ContractFullView;
-import ru.testJr1.model.entities.ContractTableView;
-import ru.testJr1.model.entities.Person;
-import ru.testJr1.model.entities.RealtyFactor;
-import ru.testJr1.utils.HibernateUtil;
-import ru.testJr1.viewer.WaitDlg;
+import ru.syrzhn.test1r.model.DataLists;
+import ru.syrzhn.test1r.model.Sqlite;
+import ru.syrzhn.test1r.model.entities.Adress;
+import ru.syrzhn.test1r.model.entities.Contract;
+import ru.syrzhn.test1r.model.entities.ContractFullView;
+import ru.syrzhn.test1r.model.entities.ContractTableView;
+import ru.syrzhn.test1r.model.entities.Person;
+import ru.syrzhn.test1r.model.entities.RealtyFactor;
+import ru.syrzhn.test1r.utils.HibernateUtil;
+import ru.syrzhn.test1r.viewer.WaitDlg;
 
 public class FrmStart {
 

@@ -1,4 +1,4 @@
-package ru.testJr1.utils;
+package ru.syrzhn.test1r.utils;
 
 import java.util.Properties;
 

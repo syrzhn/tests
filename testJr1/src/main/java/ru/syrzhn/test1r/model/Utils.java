@@ -1,4 +1,4 @@
-package ru.testJr1.model;
+package ru.syrzhn.test1r.model;
 
 import java.text.DateFormat;
 import java.text.ParseException;

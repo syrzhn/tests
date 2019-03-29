@@ -1,4 +1,4 @@
-package ru.testJr1.model.entities;
+package ru.syrzhn.test1r.model.entities;
 
 import java.util.HashSet;
 import java.util.Set;

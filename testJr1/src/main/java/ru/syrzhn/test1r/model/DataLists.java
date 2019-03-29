@@ -1,19 +1,19 @@
-package ru.testJr1.model;
+package ru.syrzhn.test1r.model;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import ru.testJr1.model.entities.Adress;
-import ru.testJr1.model.entities.Contract;
-import ru.testJr1.model.entities.ContractFullView;
-import ru.testJr1.model.entities.ContractTableView;
-import ru.testJr1.model.entities.OldFactor;
-import ru.testJr1.model.entities.Person;
-import ru.testJr1.model.entities.RealtyFactor;
-import ru.testJr1.model.entities.SquareFactor;
-import ru.testJr1.utils.HibernateUtil;
+import ru.syrzhn.test1r.model.entities.Adress;
+import ru.syrzhn.test1r.model.entities.Contract;
+import ru.syrzhn.test1r.model.entities.ContractFullView;
+import ru.syrzhn.test1r.model.entities.ContractTableView;
+import ru.syrzhn.test1r.model.entities.OldFactor;
+import ru.syrzhn.test1r.model.entities.Person;
+import ru.syrzhn.test1r.model.entities.RealtyFactor;
+import ru.syrzhn.test1r.model.entities.SquareFactor;
+import ru.syrzhn.test1r.utils.HibernateUtil;
 
 public class DataLists {
 	public static List<Adress> adressList;

@@ -1,6 +1,6 @@
-package ru.testJr1.model.entities;
+package ru.syrzhn.test1r.model.entities;
 
-import static ru.testJr1.model.Utils.stringToSqliteDate;
+import static ru.syrzhn.test1r.model.Utils.stringToSqliteDate;
 
 import java.util.HashSet;
 import java.util.Set;
