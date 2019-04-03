@@ -10,11 +10,17 @@
 
 	<repositories>
 		<repository>
-			<id>jspresso</id>
-			<name>repository.jspresso.org</name>
-			<url>http://repository.jspresso.org/maven2/</url>
+			<id>JBoss</id>
+			<name>JBoss repository</name>
+			<url>http://repository.jboss.org/maven2/</url>
 		</repository>
 	</repositories>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 		<!-- hibernate -->
