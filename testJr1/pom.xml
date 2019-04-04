@@ -8,96 +8,11 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>test1r</name>
 
-	<profiles>
-		<profile>
-			<id>Linux (x86/GTK)</id>
-			<activation>
-				<os>
-					<name>Linux</name>
-					<arch>i386</arch>
-				</os>
-			</activation>
-			<properties>
-				<swt.artifactId>org.eclipse.swt.gtk.linux.x86</swt.artifactId>
-			</properties>
-		</profile>
-		<profile>
-			<id>Linux (x86_64/GTK)</id>
-			<activation>
-				<os>
-					<name>Linux</name>
-					<arch>amd64</arch>
-				</os>
-			</activation>
-			<properties>
-				<swt.artifactId>org.eclipse.swt.gtk.linux.x86_64</swt.artifactId>
-			</properties>
-		</profile>
-		<profile>
-			<id>Windows (x86)</id>
-			<activation>
-				<os>
-					<family>windows</family>
-					<arch>x86</arch>
-				</os>
-			</activation>
-			<properties>
-				<swt.artifactId>org.eclipse.swt.win32.win32.x86</swt.artifactId>
-			</properties>
-		</profile>
-		<profile>
-			<id>Windows (x86_64)</id>
-			<activation>
-				<os>
-					<family>windows</family>
-					<arch>x86_64</arch>
-				</os>
-			</activation>
-			<properties>
-				<swt.artifactId>org.eclipse.swt.win32.win32.x86_64</swt.artifactId>
-			</properties>
-		</profile>
-		<profile>
-			<id>Mac OS X (x86/Cocoa)</id>
-			<activation>
-				<os>
-					<family>macosx</family>
-					<arch>i386</arch>
-				</os>
-			</activation>
-			<properties>
-				<swt.artifactId>org.eclipse.swt.cocoa.macosx</swt.artifactId>
-			</properties>
-		</profile>
-		<profile>
-			<id>Mac OS X (x86_64/Cocoa)</id>
-			<activation>
-				<os>
-					<family>macosx</family>
-					<arch>x86_64</arch>
-				</os>
-			</activation>
-			<properties>
-				<swt.artifactId>org.eclipse.swt.cocoa.macosx.x86_64</swt.artifactId>
-			</properties>
-		</profile>
-	</profiles>
-
 	<repositories>
 		<repository>
 			<id>JBoss</id>
 			<name>JBoss repository</name>
 			<url>http://repository.jboss.org/maven2/</url>
-		</repository>
-		<!-- There's no official public maven eclipse repository yet. Leon Blakey -->
-		<!-- has created https://github.com/maven-eclipse/maven-eclipse.github.io. -->
-		<repository>
-			<id>maven-eclipse-repo</id>
-			<url>http://maven-eclipse.github.io/maven</url>
-		</repository>
-		<repository>
-			<id>swt-repo</id>
-			<url>http://xianguang-zhou.github.io/swt-maven-repository/</url>
 		</repository>
 	</repositories>
 
@@ -108,11 +23,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.eclipse.swt</groupId>
-			<artifactId>${swt.artifactId}</artifactId>
-			<version>4.7.1</version>
-		</dependency>
 		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
