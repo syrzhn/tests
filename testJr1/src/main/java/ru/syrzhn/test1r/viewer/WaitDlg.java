@@ -15,7 +15,7 @@ public class WaitDlg extends Dialog {
 	private Label lblWait;
 	public WaitDlg(Shell parent, int style) {
 		super(parent, style);
-		setText("ֶהטעו...");
+		setText("Wait...");
 	}
 	public void open() {
 		createContents();

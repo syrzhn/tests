@@ -10,13 +10,13 @@
 		<property name="connection.driver_class">org.sqlite.JDBC</property>
 		<property name="connection.url">jdbc:sqlite:db/testJr.db</property>
 		
-		<mapping class="ru.testJr1.model.entities.Contract"/>
-		<mapping class="ru.testJr1.model.entities.Adress"/>
-		<mapping class="ru.testJr1.model.entities.Person"/>
-		<mapping class="ru.testJr1.model.entities.SquareFactor"/>
-		<mapping class="ru.testJr1.model.entities.OldFactor"/>
-		<mapping class="ru.testJr1.model.entities.RealtyFactor"/>
-		<mapping class="ru.testJr1.model.entities.ContractTableView"/>
-		<mapping class="ru.testJr1.model.entities.ContractFullView"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.Contract"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.Adress"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.Person"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.SquareFactor"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.OldFactor"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.RealtyFactor"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.ContractTableView"/>
+		<mapping class="ru.syrzhn.test1r.model.entities.ContractFullView"/>
 	</session-factory>
 </hibernate-configuration>
