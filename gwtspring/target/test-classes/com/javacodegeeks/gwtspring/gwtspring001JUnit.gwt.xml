@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module rename-to="gwtspring001">
-  <!-- Inherit our applications main module.                      -->
-  <inherits name='com.javacodegeeks.gwtspring.gwtspring001' />
-
-  <!-- Specify the path to any remote services.                   -->
-  <servlet path="/gwtspring001/greet" class="com.javacodegeeks.gwtspring.server.GreetingServiceImpl" />
-
-</module>
