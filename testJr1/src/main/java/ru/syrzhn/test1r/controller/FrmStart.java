@@ -191,10 +191,10 @@ public class FrmStart {
 				tabFolder.setSelection(1);
 			}
 		});
-		btnCreateContract.setText("Создать договор");
+		btnCreateContract.setText("\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0434\u043E\u0433\u043E\u0432\u043E\u0440");
 		
-		Button btnOpenСontract = new Button(compositeOne, SWT.NONE);
-		btnOpenСontract.addSelectionListener(new SelectionAdapter() {
+		Button btnOpenContract = new Button(compositeOne, SWT.NONE);
+		btnOpenContract.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				int contractNumber = 1;
@@ -230,7 +230,7 @@ public class FrmStart {
 				tabFolder.setSelection(1);
 			}
 		});
-		btnOpenСontract.setText("Открыть контракт");
+		btnOpenContract.setText("\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043A\u043E\u043D\u0442\u0440\u0430\u043A\u0442");
 		
 		tableBrowse = new Table(compositeOne, SWT.BORDER | SWT.FULL_SELECTION);
 		GridData gd_tableBrowse = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
@@ -272,23 +272,23 @@ public class FrmStart {
 		
 		tblclmnSerialNumber = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnSerialNumber.setWidth(100);
-		tblclmnSerialNumber.setText("Серия-Номер");
+		tblclmnSerialNumber.setText("\u0421\u0435\u0440\u0438\u044F-\u041D\u043E\u043C\u0435\u0440");
 		
 		tblclmnDateCreation = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnDateCreation.setWidth(127);
-		tblclmnDateCreation.setText("Дата заключения");
+		tblclmnDateCreation.setText("\u0414\u0430\u0442\u0430 \u0437\u0430\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F");
 		
 		tblclmnInsurer = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnInsurer.setWidth(227);
-		tblclmnInsurer.setText("Страхователь");
+		tblclmnInsurer.setText("\u0421\u0442\u0440\u0430\u0445\u043E\u0432\u0430\u0442\u0435\u043B\u044C");
 		
 		tblclmnPrize = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnPrize.setWidth(118);
-		tblclmnPrize.setText("Премия");
+		tblclmnPrize.setText("\u041F\u0440\u0435\u043C\u0438\u044F");
 		
 		tblclmnActualTime = new TableColumn(tableBrowse, SWT.NONE);
 		tblclmnActualTime.setWidth(189);
-		tblclmnActualTime.setText("Срок действия");
+		tblclmnActualTime.setText("\u0421\u0440\u043E\u043A \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F");
 		
 		TabItem tbtmTwo = new TabItem(tabFolder, SWT.NONE);
 		tbtmTwo.setText("Two");
@@ -299,13 +299,13 @@ public class FrmStart {
 		
 		Group grpCalculate = new Group(compositeTwo, SWT.NONE);
 		grpCalculate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		grpCalculate.setText("Расчёт");
+		grpCalculate.setText("\u0420\u0430\u0441\u0447\u0451\u0442");
 		grpCalculate.setLayout(new GridLayout(8, false));
 		
 		Label lblTender = new Label(grpCalculate, SWT.NONE);
 		lblTender.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblTender.setSize(95, 15);
-		lblTender.setText("Страховая сумма");
+		lblTender.setText("\u0421\u0442\u0440\u0430\u0445\u043E\u0432\u0430\u044F \u0441\u0443\u043C\u043C\u0430");
 		
 		txtTender = new Text(grpCalculate, SWT.BORDER);
 		GridData gd_txtTender = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
@@ -316,7 +316,7 @@ public class FrmStart {
 		Label lblActualtime = new Label(grpCalculate, SWT.NONE);
 		lblActualtime.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblActualtime.setSize(98, 15);
-		lblActualtime.setText("Срок действия с   ");
+		lblActualtime.setText("\u0421\u0440\u043E\u043A \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F \u0441   ");
 		
 		txtBefore = new Text(grpCalculate, SWT.BORDER);
 		GridData gd_txtBefore = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
@@ -329,7 +329,7 @@ public class FrmStart {
 		
 		Label lblUntil = new Label(grpCalculate, SWT.NONE);
 		lblUntil.setSize(32, 15);
-		lblUntil.setText("   по   ");
+		lblUntil.setText("   \u043F\u043E   ");
 		
 		txtUntil = new Text(grpCalculate, SWT.BORDER);
 		GridData gd_txtUntil = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
@@ -343,7 +343,7 @@ public class FrmStart {
 		Label lblRealtyFactor = new Label(grpCalculate, SWT.NONE);
 		lblRealtyFactor.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblRealtyFactor.setSize(106, 15);
-		lblRealtyFactor.setText("Тип недвижимости");
+		lblRealtyFactor.setText("\u0422\u0438\u043F \u043D\u0435\u0434\u0432\u0438\u0436\u0438\u043C\u043E\u0441\u0442\u0438");
 		
 		comboRealtyFactor = new Combo(grpCalculate, SWT.NONE);
 		comboRealtyFactor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -358,7 +358,7 @@ public class FrmStart {
 		Label lblOldFactor = new Label(grpCalculate, SWT.NONE);
 		lblOldFactor.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblOldFactor.setSize(81, 15);
-		lblOldFactor.setText("Год постройки");
+		lblOldFactor.setText("\u0413\u043E\u0434 \u043F\u043E\u0441\u0442\u0440\u043E\u0439\u043A\u0438");
 		
 		txtOldFactor = new Text(grpCalculate, SWT.BORDER);
 		txtOldFactor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -373,7 +373,7 @@ public class FrmStart {
 		Label lblSquareFactor = new Label(grpCalculate, SWT.NONE);
 		lblSquareFactor.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblSquareFactor.setSize(52, 15);
-		lblSquareFactor.setText("Площадь");
+		lblSquareFactor.setText("\u041F\u043B\u043E\u0449\u0430\u0434\u044C");
 		
 		txtSquareFactor = new Text(grpCalculate, SWT.BORDER);
 		txtSquareFactor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -390,7 +390,7 @@ public class FrmStart {
 		Button btnCalculate = new Button(grpCalculate, SWT.NONE);
 		btnCalculate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		btnCalculate.setSize(161, 25);
-		btnCalculate.setText("Рассчитать");
+		btnCalculate.setText("\u0420\u0430\u0441\u0441\u0447\u0438\u0442\u0430\u0442\u044C");
 		new Label(grpCalculate, SWT.NONE);
 		new Label(grpCalculate, SWT.NONE);
 		new Label(grpCalculate, SWT.NONE);
@@ -400,7 +400,7 @@ public class FrmStart {
 		Label lblCalculateDate = new Label(grpCalculate, SWT.NONE);
 		lblCalculateDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblCalculateDate.setSize(73, 15);
-		lblCalculateDate.setText("Дата расчёта");
+		lblCalculateDate.setText("\u0414\u0430\u0442\u0430 \u0440\u0430\u0441\u0447\u0451\u0442\u0430");
 		
 		txtCalculateDate = new Text(grpCalculate, SWT.BORDER);
 		txtCalculateDate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -409,7 +409,7 @@ public class FrmStart {
 		Label lblPrize = new Label(grpCalculate, SWT.NONE);
 		lblPrize.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblPrize.setSize(25, 15);
-		lblPrize.setText("Премия");
+		lblPrize.setText("\u041F\u0440\u0435\u043C\u0438\u044F");
 		
 		txtPrize = new Text(grpCalculate, SWT.BORDER);
 		txtPrize.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -425,7 +425,7 @@ public class FrmStart {
 		
 		Label lblContractnumber = new Label(composite, SWT.NONE);
 		lblContractnumber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblContractnumber.setText("Номер договора");
+		lblContractnumber.setText("\u041D\u043E\u043C\u0435\u0440 \u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0430");
 		
 		txtContractNumber = new Text(composite, SWT.BORDER);
 		txtContractNumber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -433,7 +433,7 @@ public class FrmStart {
 		
 		Label lblCreateDate = new Label(composite, SWT.NONE);
 		lblCreateDate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblCreateDate.setText("Дата заключения");
+		lblCreateDate.setText("\u0414\u0430\u0442\u0430 \u0437\u0430\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F");
 		
 		txtCreateDate = new Text(composite, SWT.BORDER);
 		txtCreateDate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -447,7 +447,7 @@ public class FrmStart {
 		Label lblInsurer = new Label(composite, SWT.NONE);
 		lblInsurer.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblInsurer.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblInsurer.setText("СТРАХОВАТЕЛЬ");
+		lblInsurer.setText("\u0421\u0422\u0420\u0410\u0425\u041E\u0412\u0410\u0422\u0415\u041B\u042C");
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
@@ -459,24 +459,24 @@ public class FrmStart {
 		
 		Button btnSelectinsurer = new Button(composite, SWT.NONE);
 		btnSelectinsurer.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		btnSelectinsurer.setText("Выбрать");
+		btnSelectinsurer.setText("\u0412\u044B\u0431\u0440\u0430\u0442\u044C");
 		
 		Label lblFio = new Label(composite, SWT.NONE);
 		GridData gd_lblFio = new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1);
 		gd_lblFio.widthHint = 39;
 		lblFio.setLayoutData(gd_lblFio);
-		lblFio.setText("ФИО");
+		lblFio.setText("\u0424\u0418\u041E");
 		
 		txtFio = new Text(composite, SWT.BORDER);
 		txtFio.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 5, 1));
 		
 		Button btnChange = new Button(composite, SWT.NONE);
-		btnChange.setText("Изменить");
+		btnChange.setText("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		new Label(composite, SWT.NONE);
 		
 		Label lblBithdate = new Label(composite, SWT.NONE);
 		lblBithdate.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblBithdate.setText("Дата рождения");
+		lblBithdate.setText("\u0414\u0430\u0442\u0430 \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F");
 		
 		txtBirthdate = new Text(composite, SWT.BORDER);
 		GridData gd_txtBirthdate = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
@@ -488,7 +488,7 @@ public class FrmStart {
 		
 		Label lblPassSerial = new Label(composite, SWT.NONE);
 		lblPassSerial.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblPassSerial.setText("Паспорт   серия");
+		lblPassSerial.setText("\u041F\u0430\u0441\u043F\u043E\u0440\u0442   \u0441\u0435\u0440\u0438\u044F");
 		
 		txtPassSerial = new Text(composite, SWT.BORDER);
 		GridData gd_txtPassSerial = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
@@ -497,7 +497,7 @@ public class FrmStart {
 		
 		Label lblPassNumber = new Label(composite, SWT.NONE);
 		lblPassNumber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblPassNumber.setText("номер");
+		lblPassNumber.setText("\u043D\u043E\u043C\u0435\u0440");
 		
 		txtPassNumber = new Text(composite, SWT.BORDER);
 		txtPassNumber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
@@ -505,7 +505,7 @@ public class FrmStart {
 		Label lblAdress = new Label(composite, SWT.NONE);
 		lblAdress.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblAdress.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblAdress.setText("Адрес недвижимости");
+		lblAdress.setText("\u0410\u0434\u0440\u0435\u0441 \u043D\u0435\u0434\u0432\u0438\u0436\u0438\u043C\u043E\u0441\u0442\u0438");
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
@@ -530,23 +530,23 @@ public class FrmStart {
 		Label lblState = new Label(composite, SWT.NONE);
 		lblState.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
 		lblState.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
-		lblState.setText("государство");
+		lblState.setText("\u0433\u043E\u0441\u0443\u0434\u0430\u0440\u0441\u0442\u0432\u043E");
 		
 		Label lblIdx = new Label(composite, SWT.NONE);
 		lblIdx.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
 		lblIdx.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblIdx.setText("индекс");
+		lblIdx.setText("\u0438\u043D\u0434\u0435\u043A\u0441");
 		new Label(composite, SWT.NONE);
 		
 		Label lblStatecount = new Label(composite, SWT.NONE);
 		lblStatecount.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
 		lblStatecount.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 2, 1));
-		lblStatecount.setText("республика, край, область");
+		lblStatecount.setText("\u0440\u0435\u0441\u043F\u0443\u0431\u043B\u0438\u043A\u0430, \u043A\u0440\u0430\u0439, \u043E\u0431\u043B\u0430\u0441\u0442\u044C");
 		
 		Label lblDistrict = new Label(composite, SWT.NONE);
 		lblDistrict.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 4, 1));
 		lblDistrict.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblDistrict.setText("район");
+		lblDistrict.setText("\u0440\u0430\u0439\u043E\u043D");
 		
 		txtCity = new Text(composite, SWT.BORDER);
 		txtCity.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -569,37 +569,37 @@ public class FrmStart {
 		Label lblCity = new Label(composite, SWT.NONE);
 		lblCity.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
 		lblCity.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
-		lblCity.setText("населённый пункт");
+		lblCity.setText("\u043D\u0430\u0441\u0435\u043B\u0451\u043D\u043D\u044B\u0439 \u043F\u0443\u043D\u043A\u0442");
 		
 		Label lblStreet = new Label(composite, SWT.NONE);
 		lblStreet.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
 		lblStreet.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 4, 1));
-		lblStreet.setText("улица");
+		lblStreet.setText("\u0443\u043B\u0438\u0446\u0430");
 		
 		Label lblBuilding = new Label(composite, SWT.NONE);
 		lblBuilding.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
 		lblBuilding.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblBuilding.setText("дом");
+		lblBuilding.setText("\u0434\u043E\u043C");
 		
 		Label lblCorp = new Label(composite, SWT.NONE);
 		lblCorp.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
 		lblCorp.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblCorp.setText("корпус");
+		lblCorp.setText("\u043A\u043E\u0440\u043F\u0443\u0441");
 		
 		Label lblStructure = new Label(composite, SWT.NONE);
 		lblStructure.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
 		lblStructure.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
-		lblStructure.setText("строение");
+		lblStructure.setText("\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435");
 		
 		Label lblHouse = new Label(composite, SWT.NONE);
 		lblHouse.setFont(SWTResourceManager.getFont("Segoe UI", 7, SWT.NORMAL));
 		lblHouse.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1, 1));
-		lblHouse.setText("квартира");
+		lblHouse.setText("\u043A\u0432\u0430\u0440\u0442\u0438\u0440\u0430");
 		
 		Label lblComment = new Label(composite, SWT.NONE);
 		lblComment.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblComment.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblComment.setText("КОММЕНТАРИЙ");
+		lblComment.setText("\u041A\u041E\u041C\u041C\u0415\u041D\u0422\u0410\u0420\u0418\u0419");
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
@@ -611,10 +611,8 @@ public class FrmStart {
 		
 		Label lblDescription = new Label(composite, SWT.NONE);
 		lblDescription.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 2));
-		lblDescription.setText("Комментарий к\r\n"
-				+ "договору (не\r\n"
-				+ "печатается на\r\n"
-				+ "полисе)");
+		lblDescription.setText(
+				"\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u043A\n\u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0443 (\u043D\u0435\n\u043F\u0435\u0447\u0430\u0442\u0430\u0435\u0442\u0441\u044F \u043D\u0430\n\u043F\u043E\u043B\u0438\u0441\u0435)");
 		
 		txtComment = new Text(composite, SWT.BORDER);
 		GridData gd_txtComment = new GridData(SWT.FILL, SWT.CENTER, true, false, 8, 2);
@@ -683,7 +681,7 @@ public class FrmStart {
 			}
 		});
 		btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
-		btnSave.setText("Сохранить");
+		btnSave.setText("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C");
 		
 		Button btnBacktocontractlist = new Button(composite, SWT.NONE);
 		btnBacktocontractlist.addSelectionListener(new SelectionAdapter() {
@@ -692,7 +690,7 @@ public class FrmStart {
 				tabFolder.setSelection(0);
 			}
 		});
-		btnBacktocontractlist.setText("К списку договоров");
+		btnBacktocontractlist.setText("\u041A \u0441\u043F\u0438\u0441\u043A\u0443 \u0434\u043E\u0433\u043E\u0432\u043E\u0440\u043E\u0432");
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
