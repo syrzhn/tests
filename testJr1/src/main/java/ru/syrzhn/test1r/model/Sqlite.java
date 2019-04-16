@@ -17,7 +17,7 @@ public class Sqlite {
 		dataBaseExists = f.exists();
 		try {
 			if(connection == null)			
-				connection = DriverManager.getConnection("jdbc:sqlite:db/testJr.db");
+				connection = DriverManager.getConnection("jdbc:sqlite:db/test1r.db");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
