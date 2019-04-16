@@ -28,7 +28,7 @@ public class Sqlite {
 		createConnection();
 		if (dataBaseExists)
 			return connection;
-		String scriptPath = "src\\ru\\testJr1\\model\\data_base_creation_script.sql";
+		String scriptPath = "src\\main\\java\\ru\\syrzhn\\test1r\\model\\data_base_creation_script.sql";
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(scriptPath));
 			String str = null;
