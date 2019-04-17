@@ -471,7 +471,7 @@ public class FrmStart {
 		txtFio.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 5, 1));
 		
 		Button btnChange = new Button(composite, SWT.NONE);
-		btnChange.setText("��������");
+		btnChange.setText("Изменить");
 		new Label(composite, SWT.NONE);
 		
 		Label lblBithdate = new Label(composite, SWT.NONE);
