@@ -1,2 +1,0 @@
-serviceClass: ru.syrzhn.client.GreetingService
-path: 8941A2847FB2F30AD9E81A6CCA808DAA.gwt.rpc
