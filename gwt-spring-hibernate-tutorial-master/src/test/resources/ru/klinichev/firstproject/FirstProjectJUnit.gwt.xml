@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="FirstProject">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='ru.klinichev.firstproject.FirstProject' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/FirstProject/greet" class="ru.klinichev.firstproject.server.GreetingServiceImpl" />
+
+</module>
